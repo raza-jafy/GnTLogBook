@@ -1,0 +1,228 @@
+﻿@model GenerationLogBook.ViewModels.ReportsFormViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+@section scripts{
+    <script type="text/javascript">
+        var LOVReports = @Html.Raw(Json.Encode(Model.LOVReports));
+        var LOVSites =   @Html.Raw(Json.Encode(Model.LOVSites));
+        var LOVUnits =   @Html.Raw(Json.Encode(Model.LOVUnits));
+
+        function InitializeForm() {
+            $('#dtFrom').keydown(function(e) {
+                e.preventDefault();
+            });
+
+            $('#dtTo').keydown(function(e) {
+                e.preventDefault();
+            });
+
+            $('#dtFrom').focus(function(){
+                $('#dtFrom').blur();
+            });
+
+            $('#dtTo').focus(function(){
+                $('#dtTo').blur();
+            });
+
+            $('#dtFrom').datepicker({
+                defaultDate: new Date(),
+                autoclose: true,
+                todayHighlight: true,
+                format: 'dd-MM-yyyy',
+                endDate: new Date()
+            });
+
+            $('#dtTo').datepicker({
+                defaultDate: new Date(),
+                autoclose: true,
+                todayHighlight: true,
+                format: 'dd-MM-yyyy',
+                endDate: new Date()
+            });
+
+            var today = new Date();
+            $('#dtFrom').datepicker('setDate', new Date(today.getFullYear(), today.getMonth(), today.getDate()));
+            $('#dtTo').datepicker('setDate', new Date(today.getFullYear(), today.getMonth(), today.getDate()));
+
+            $('#SelectedReportId').empty();
+            $('#SelectedSiteId').empty();
+            $('#SelectedUnitId').empty();
+    
+            $('#SelectedReportId').append('<option value="' + '' + '">' + 'Select' + '</option>');
+            for (var i = 0; i < LOVReports.length; i++) {
+                $('#SelectedReportId').append('<option value="' + LOVReports[i].ReportId + '">' + LOVReports[i].ReportName + '</option>');
+            }
+
+            $('#SelectedSiteId').append('<option value="' + '' + '">' + 'Select' + '</option>');
+            for (var i = 0; i < LOVSites.length; i++) {
+                $('#SelectedSiteId').append('<option value="' + LOVSites[i].Key + '">' + LOVSites[i].Value + '</option>');
+            }
+
+            $('#SelectedSiteId').change(function () {
+                //alert();
+                $('#SelectedUnitId').empty();
+                var selectedSite = $('#SelectedSiteId').val();
+                var Units = $.grep(LOVUnits, function (n, i) {
+                    return n.ParentKey == selectedSite;
+                });
+
+                $('#SelectedUnitId').append('<option value="' + '' + '">' + 'Select' + '</option>');
+                for (var i = 0; i < Units.length; i++) {
+                    $('#SelectedUnitId').append('<option value="' + Units[i].Key + '">' + Units[i].Value + '</option>');
+                }
+            });
+
+            $('#SelectedReportId').change(function () {
+                var repId = $('#SelectedReportId').val();
+
+                var selReport = $.grep(LOVReports, function (n, i) {
+                    return n.ReportId == repId;
+                });
+
+                if (selReport[0].ReportType == 'S'){
+                    $('#SelectedUnitId option:first-child').attr('selected', 'selected');
+                    $('#SelectedUnitId').prop('disabled', true);
+                    
+                }
+                else{
+                    $('#SelectedUnitId').prop('disabled', false);
+                }
+            });
+
+        }
+
+        function cmdSubmit_Click() {
+            if (!fnvalidateInput()) {
+                alert('Please enter correct parameters for report execution');
+                return;
+            }
+            var prmFetchReport = FetchReport();
+            prmFetchReport.done(FetchReport_Success);
+            prmFetchReport.fail(FetchReport_Fail);
+
+        }
+
+        function FetchReport() {
+            var input = {};
+            input.DateFrom = $('#dtFrom').val();
+            input.DateTo = $('#dtTo').val();
+
+            var repId = $('#SelectedReportId').val();
+            var selReport = $.grep(LOVReports, function (n, i) {
+                return n.ReportId == repId;
+            });
+
+            if (selReport[0].ReportType == 'S')
+                input.Id = $('#SelectedSiteId').val();
+            else
+                input.Id = $('#SelectedUnitId').val();
+            
+            var url = selReport[0].ReportController;
+
+            showLoadingSpinner();
+            $('#divrpt').html('');
+
+            return $.ajax({
+                type: "GET",
+                url: url,
+                data: input
+            });
+        }
+
+        var FetchReport_Success = function (html) {
+            console.log(html);
+            $('#heading').html($('#SelectedReportId option:selected').text());
+            $('#divrpt').html(html);
+            hideLoadingSpinner();
+        }
+
+        var FetchReport_Fail = function (xhr) {
+            hideLoadingSpinner();
+
+            if (xhr.status == 403) {
+                showLoadingSpinner();
+                //var response = $.parseJSON(xhr.responseText);
+                var protocol = '';
+                if (window.location.protocol != '')
+                    protocol = window.location.protocol + '//';
+                else
+                    protocol = '';
+                var port = '';
+                if (window.location.port != '')
+                    port = ':' + window.location.port;
+                else
+                    port = '';
+
+                var redirectUrl = protocol + window.location.hostname + port + '/Login/Logoff';
+                window.location.assign(redirectUrl);
+                return;
+            }
+
+            if (xhr.readyState == 0) {
+                alert("An Error has Occured.\nUnable to reach to the Server");
+                return;
+            }
+            //alert('error');
+            $('#diverrorinfo').html(xhr.responseText);
+        }
+
+        function fnvalidateInput() {
+            var repId = $('#SelectedReportId').val();
+
+            if (repId == '')
+                return false;
+
+            var selReport = $.grep(LOVReports, function (n, i) {
+                return n.ReportId == repId;
+            });
+
+            if (selReport[0].ReportType == 'S'){
+                if($('#SelectedSiteId').val() == '')
+                    return false;
+            }
+            else{
+                if($('#SelectedSiteId').val() == '' || $('#SelectedUnitId').val() == '')
+                    return false;
+            }
+            return true;
+        }
+
+        $(document).ready(function () {
+            InitializeForm();
+        });
+    </script>
+}
+@*<button data-toggle="collapse" data-target="#demo">Collapsible</button>*@
+<h4 id="heading" style="cursor:pointer" data-toggle="collapse" data-target="#demo">Index</h4>
+<div id="demo" class="panel-collapse collapse in">
+    <div id="main" class="form-inline">
+        <div class="col-md-2">
+            <label for="SiteId">Site</label>
+            <select class="form-control input-sm" id="SelectedSiteId" name="SelectedSiteId"></select>
+        </div>
+        <div class="col-md-2">
+            <label for="UnitId">Unit</label>
+            <select class="form-control input-sm" id="SelectedUnitId" name="SelectedUnitId"></select>
+        </div>
+        <div class="col-md-2">
+            <label for="dtFrom">From</label>
+            <input class="form-control input-sm" id="dtFrom" name="dtFrom">
+        </div>
+        <div class="col-md-2">
+            <label for="dtTo">To</label>
+            <input class="form-control input-sm" id="dtTo" name="dtTo">
+        </div>
+        <div class="col-md-3">
+            <label for="SelectedReportId">Report</label>
+            <select class="form-control input-sm" id="SelectedReportId" name="SelectedReportId"></select>
+        </div>
+        <div class="col-md-1">
+            <button id="cmdSubmit" class="btn btn-primary" onclick="cmdSubmit_Click();">Submit</button>
+        </div>
+    </div>
+</div>
+<div id="diverrorinfo"></div>
+<div id="divrpt"></div>        
+@Html.Partial("_LoadingSpinner")

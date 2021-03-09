@@ -1,0 +1,500 @@
+﻿@model GenerationLogBook.ViewModels.SafetyFormViewModel
+@{
+    ViewBag.Title = "SafetyForm";
+}
+
+@section scripts{
+    <script type="text/javascript">
+        @*var UserId = '@Model.UserId';
+        var AuthId = '@Model.AuthId';
+        var LOVUnits = @Html.Raw(Json.Encode(Model.LOVUnits));
+        var LOVForcedGrid = @Html.Raw(Json.Encode(Model.LOVForcedGrid));
+        var LOVIsGas = @Html.Raw(Json.Encode(Model.LOVIsGas));
+        var LOVIsLDC = @Html.Raw(Json.Encode(Model.LOVIsLDC));
+        var LOVIsPlanned = @Html.Raw(Json.Encode(Model.LOVIsPlanned));
+        var LOVOutageDeration = @Html.Raw(Json.Encode(Model.LOVOutageDeration));
+        var LOVStartupRamp = @Html.Raw(Json.Encode(Model.LOVStartupRamp));*@
+
+        var griddata = @Html.Raw(Json.Encode(Model.SafetyLedger));
+        var hiddenCols = @Html.Raw(Json.Encode(Model.hiddenCols));
+        var controller = '@Model.Controller';
+        var siteid = '@Model.SiteId';
+        var theMonthDate='';
+        var workhourrec = {};
+
+        $(document).ready(function () {
+            InitializeForm();
+        });
+
+        function InitializeForm() {
+            $('#selectdate').keydown(function (e) {
+                e.preventDefault();
+            });
+
+            $('#selectdate').focus(function () {
+                $('#selectdate').blur();
+            });
+
+            $('#selectdate').datepicker({
+                defaultDate: new Date(),
+                autoclose: true,
+                todayHighlight: true,
+                format: 'MM-yyyy',
+                viewMode: 'months',
+                minViewMode: 'months',
+                endDate: new Date(),
+
+            });
+            var today = new Date();
+            $('#selectdate').datepicker('setDate', new Date(today.getFullYear(), today.getMonth(), today.getDate()));
+
+            $('.modal-dialog-popup').draggable({
+                handle: ".modal-header"
+            });
+
+            bindDataGrid(griddata);
+            $("#cmdFetchLedger").show();
+        }
+
+        function bindDataGrid(data) {
+            ledger = new $.jqx.observableArray(data, function (changed) {
+                //logic to keep track which record has been updated/added by the user
+                ledger[changed.index].ctrack = "Y";
+            });
+
+            var dsledger = {
+                localdata: ledger,
+                datatype: "obserableArray",
+                datafields: [{ name: 'SiteId', type: 'string' },
+                             { name: 'theDateStr', type: 'date' },
+                             { name: 'Fatality', type: 'float' },
+                             { name: 'LTI', type: 'float' },
+                             { name: 'RWC', type: 'float' },
+                             { name: 'MTC', type: 'float' },
+                             { name: 'TotalIncidents', type: 'float' },
+                             { name: 'Remarks', type: 'string' }]
+            };
+
+            var adapledger = new $.jqx.dataAdapter(dsledger);
+
+            $("#divgrid").jqxGrid(
+            {
+                source: adapledger, width: '100%', height: '420px', sortable: true, columnsresize: true, editable: true, filterable: true, pageable: false,
+                altrows: false, showeverpresentrow: false, editmode: 'click', selectionmode: "singlerow", theme: "office",
+                autorowheight: false, autoheight: false, enablebrowserselection: true, enableanimations: true, filtermode: 'excel', keyboardnavigation: false,
+                columns: [
+            {
+                text: 'Date',
+                datafield: 'theDateStr',
+                width: 125,
+                pinned: true,
+                cellsformat: 'dd-MMM-yyyy',
+                editable: false
+            },
+            {
+                text: 'Fatality',
+                datafield: 'Fatality',
+                width: 125,
+                renderer: function (defaultText, alignment, height) { //Required to displat Multiline Header
+                    return '<div style="text-align:center;margin: 3px 0 0 3px;">Fatality</div>';
+                },
+                columntype: 'numberinput',
+                cellsformat: 'f',
+                createeditor: function (row, cellvalue, editor) {
+                    editor.jqxNumberInput({ inputMode: 'simple', spinButtons: false, decimalDigits: 0 });
+                }
+            },
+            {
+                text: 'LTI',
+                datafield: 'LTI',
+                width: 125,
+                renderer: function (defaultText, alignment, height) { //Required to displat Multiline Header
+                    return '<div style="text-align:center;margin: 3px 0 0 3px;">LTI</div>';
+                },
+                columntype: 'numberinput',
+                cellsformat: 'f',
+                createeditor: function (row, cellvalue, editor) {
+                    editor.jqxNumberInput({ inputMode: 'simple', spinButtons: false, decimalDigits: 0 });
+                }
+            },
+            {
+                text: 'RWC',
+                datafield: 'RWC',
+                width: 125,
+                renderer: function (defaultText, alignment, height) { //Required to displat Multiline Header
+                    return '<div style="text-align:center;margin: 3px 0 0 3px;">RWC</div>';
+                },
+                columntype: 'numberinput',
+                cellsformat: 'f',
+                createeditor: function (row, cellvalue, editor) {
+                    editor.jqxNumberInput({ inputMode: 'simple', spinButtons: false, decimalDigits: 0 });
+                }
+            },
+            {
+                text: 'MTC',
+                datafield: 'MTC',
+                width: 125,
+                renderer: function (defaultText, alignment, height) { //Required to displat Multiline Header
+                    return '<div style="text-align:center;margin: 3px 0 0 3px;">MTC</div>';
+                },
+                columntype: 'numberinput',
+                cellsformat: 'f',
+                createeditor: function (row, cellvalue, editor) {
+                    editor.jqxNumberInput({ inputMode: 'simple', spinButtons: false, decimalDigits: 0 });
+                }
+            },
+            {
+                text: 'TotalIncidents',
+                datafield: 'TotalIncidents',
+                width: 125,
+                renderer: function (defaultText, alignment, height) { //Required to displat Multiline Header
+                    return '<div style="text-align:center;margin: 3px 0 0 3px;">Total Incidents</div>';
+                },
+                cellsformat: 'f',
+                editable: false
+            },
+            {
+                text: 'Remarks',
+                datafield: 'Remarks',
+                width: 350,
+                renderer: function (defaultText, alignment, height) { //Required to displat Multiline Header
+                    return '<div style="text-align:center;margin: 3px 0 0 3px;">Remarks</div>';
+                },
+                initeditor: function (row, column, editor) {
+                    editor.attr('maxlength', 300);
+                }
+            }
+
+           ]
+            });
+
+            for (var i = 0; i < hiddenCols.length; i++) {
+                $('#divgrid').jqxGrid('hidecolumn', hiddenCols[i]);
+            }
+        }
+
+        function cmdFetchLedger_Click(){
+            showLoadingSpinner();
+            var prmFetchLedger = FetchLedger();
+            prmFetchLedger.done(FetchLedger_Success);
+            prmFetchLedger.fail(FetchLedger_Fail);
+        }
+
+        function FetchLedger() {
+            var inputparameters = { };
+            var inputcollection = [];
+
+            theMonthDate = '01-'+$('#selectdate').val();
+
+            inputparameters.date = theMonthDate;
+            console.log(inputparameters);
+            inputcollection.push(inputparameters);
+
+            var deltaJson = JSON.stringify({ 'input': inputcollection });
+
+            return $.ajax({
+                type: "POST",
+                url: '/'+ controller +'/FetchSafetyLedger',
+                data: deltaJson,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            });
+        }
+
+        var FetchLedger_Success = function (data) {
+            console.log(data);
+            hideLoadingSpinner();
+
+            if (data.Status == null) {
+                alert("Unable to get Status of response. Please try again, if problem persists contact application administrator");
+                return;
+            }
+
+            if (data.Status.CODE != "OK") {
+                alert("An Error has Occured.\n" + data.Status.CODE + ": " + data.Status.TEXT);
+                return;
+            }
+            $('#divheader').text(data.FormHeading);
+
+            if (data.SafetyLedger.length > 0) {
+                $("#cmdSaveChanges").show();
+                $("#cmdUpdate").show();
+            }
+            else {
+                $("#cmdSaveChanges").hide();
+                $("#cmdUpdate").hide();
+            }
+
+            $("#cmdFetchLedger").show();
+            bindDataGrid(data.SafetyLedger);
+            displayworkhoursinfo(data.WorkHoursLedger);
+        }
+
+        var FetchLedger_Fail = function (xhr) {
+            hideLoadingSpinner();
+
+            if (xhr.status == 403) {
+                showLoadingSpinner();
+                //var response = $.parseJSON(xhr.responseText);
+                var protocol = '';
+                if (window.location.protocol != '')
+                    protocol = window.location.protocol + '//';
+                else
+                    protocol = '';
+                var port = '';
+                if (window.location.port != '')
+                    port = ':' + window.location.port;
+                else
+                    port = '';
+
+                var redirectUrl = protocol + window.location.hostname + port + '/Login/Logoff';
+                window.location.assign(redirectUrl);
+                return;
+            }
+
+            if (xhr.readyState == 0) {
+                alert("An Error has Occured.\nUnable to reach to the Server");
+                return;
+            }
+
+            $('#diverrorinfo').html(xhr.responseText);
+        }
+
+        function cmdSaveChanges_Click() {
+            showLoadingSpinner();
+
+            var changes = $.grep(ledger, function (n, i) {
+                return n.ctrack == "Y";
+            });
+            //alert(changes.length + " record are changed");
+            if (changes.length == 0) {
+                hideLoadingSpinner();
+                alert('Nothing to Save');
+                return;
+            }
+
+            var prmpostChanges = postChanges(changes);
+            prmpostChanges.done(postChanges_Success);
+            prmpostChanges.fail(postChanges_Fail);
+        }
+
+        function postChanges(changes) {
+            var changesJson = JSON.stringify({ 'changes': changes });
+
+            return $.ajax({
+                type: "POST",
+                url: '/'+ controller +'/PostSafetySheet',
+                data: changesJson,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            });
+        }
+
+        var postChanges_Success = function (data) {
+            if (data.Status == null) {
+                alert("Unable to get Status of response. Please try again, if problem persists contact application administrator");
+                hideLoadingSpinner();
+                return;
+            }
+
+            if (data.Status.CODE != "OK") {
+                alert("An Error has Occured.\n" + data.Status.CODE + ": " + data.Status.TEXT);
+                hideLoadingSpinner();
+                return;
+            }
+            bindDataGrid(data.SafetyLedger); //To refresh with recent data
+            displayworkhoursinfo(data.WorkHoursLedger);
+            hideLoadingSpinner();
+        }
+
+        var postChanges_Fail = function (xhr) {
+            hideLoadingSpinner();
+
+            if (xhr.status == 403) {
+                showLoadingSpinner();
+                //var response = $.parseJSON(xhr.responseText);
+                var protocol = '';
+                if (window.location.protocol != '')
+                    protocol = window.location.protocol + '//';
+                else
+                    protocol = '';
+                var port = '';
+                if (window.location.port != '')
+                    port = ':' + window.location.port;
+                else
+                    port = '';
+
+                var redirectUrl = protocol + window.location.hostname + port + '/Login/Logoff';
+                window.location.assign(redirectUrl);
+                return;
+            }
+
+            if (xhr.readyState == 0) {
+                alert("An Error has Occured.\nUnable to reach to the Server");
+                return;
+            }
+
+            $('#diverrorinfo').html(xhr.responseText);
+        }
+
+        function displayworkhoursinfo(data){
+            workhourrec = data;
+            if (data == null){
+                $('#emphrs').val('');
+                $('#osphrs').val('');
+                $('#totalhrs').html('Total Hrs Work: ');
+            }
+            else{
+                $('#emphrs').val(data.EmpWorkHours);
+                $('#osphrs').val(data.OSPWorkHours);
+                var sum = data.EmpWorkHours*1 + data.OSPWorkHours*1;
+                $('#totalhrs').html('Total Hrs Work: ' + sum);
+            }
+        }
+
+        function cmdUpdate_Click(){
+            var data = {};
+
+            showLoadingSpinner();
+            if (workhourrec != null){
+                data.theMonthStr = workhourrec.theMonthStr;
+                data.SiteId = workhourrec.SiteId;
+                data.CreateDateStr = workhourrec.CreateDateStr;
+            }
+            else{
+                data.theMonthStr = theMonthDate;
+                data.SiteId = siteid;
+                data.CreateDateStr = null;
+            }
+
+
+            data.EmpWorkHours = $('#emphrs').val();
+            data.OSPWorkHours = $('#osphrs').val();
+
+            var prmpostChanges = postWorkHourChanges(data);
+            prmpostChanges.done(postWorkHourChanges_Success);
+            prmpostChanges.fail(postWorkHourChanges_Fail);
+        }
+
+        function postWorkHourChanges(change) {
+            var changesJson = JSON.stringify({ 'change': change });
+
+            console.log(change);
+            console.log(changesJson);
+
+            return $.ajax({
+                type: "POST",
+                url: '/'+ controller +'/PostWorkHourData',
+                data: changesJson,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            });
+        }
+
+        var postWorkHourChanges_Success = function (data) {
+            if (data.Status == null) {
+                alert("Unable to get Status of response. Please try again, if problem persists contact application administrator");
+                hideLoadingSpinner();
+                return;
+            }
+
+            if (data.Status.CODE != "OK") {
+                alert("An Error has Occured.\n" + data.Status.CODE + ": " + data.Status.TEXT);
+                hideLoadingSpinner();
+                return;
+            }
+
+            displayworkhoursinfo(data.WorkHoursLedger);
+            hideLoadingSpinner();
+        }
+
+        var postWorkHourChanges_Fail = function (xhr) {
+            hideLoadingSpinner();
+
+            if (xhr.status == 403) {
+                showLoadingSpinner();
+                //var response = $.parseJSON(xhr.responseText);
+                var protocol = '';
+                if (window.location.protocol != '')
+                    protocol = window.location.protocol + '//';
+                else
+                    protocol = '';
+                var port = '';
+                if (window.location.port != '')
+                    port = ':' + window.location.port;
+                else
+                    port = '';
+
+                var redirectUrl = protocol + window.location.hostname + port + '/Login/Logoff';
+                window.location.assign(redirectUrl);
+                return;
+            }
+
+            if (xhr.readyState == 0) {
+                alert("An Error has Occured.\nUnable to reach to the Server");
+                return;
+            }
+
+            $('#diverrorinfo').html(xhr.responseText);
+        }
+
+        function isNumber(evt) {
+            var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+            if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+                return false;
+
+            return true;
+        }   
+    </script>
+}
+
+<br />
+<div id="divheader">Safety Sheet</div>
+<div id="main" class="form-inline">
+    <label for="selectdate">Month Year</label>
+    <input id="selectdate" class="form-control input-sm" />
+    <button id="cmdFetchLedger" style="display:none;" onclick="cmdFetchLedger_Click();" class="btn btn-primary">Retrive</button>
+    <button id="cmdSaveChanges" style="display:none;" class="btn btn-primary" onclick="cmdSaveChanges_Click();">Save Changes</button>
+</div>
+<div id="diverrorinfo"></div>
+<div id="divgrid"> </div>
+<div class="form-inline">
+    <label for="emphrs">Employee Hrs Work</label>
+    <input id="emphrs" class="form-control input-sm" onkeypress="javascript:return isNumber(event)"/>
+    <label for="osphrs">OSP Hrs Work</label>
+    <input id="osphrs" class="form-control input-sm" onkeypress="javascript:return isNumber(event)"/>
+    <label id="totalhrs">Total Hrs Work:     </label>
+    <button id="cmdUpdate" style="display:none"; onclick="cmdUpdate_Click();" class="btn btn-primary">Update Work Hours</button>
+</div>
+@Html.Partial("_LoadingSpinner")
+
+<!-- Modal -->
+@*
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="customclose close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Create New Entry</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <div class="col-xs-4">
+                        <label for="ex2">Hour</label>
+                        <select class="form-control input-sm" id="hour"></select>
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="ex3">Minute</label>
+                        <select class="form-control input-sm" id="minute"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" onclick="cmdConfirm_Click();">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+*@

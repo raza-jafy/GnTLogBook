@@ -1,0 +1,45 @@
+﻿@model GenerationLogBook.ViewModels.ModifyUserFormViewModel
+@{
+    ViewBag.Title = "ModifyUser";
+    if (Model.UserId == null)
+    {
+        <h2>Create User</h2>
+    }
+    else
+    {
+        <h2>Change User</h2>
+    }
+
+}
+
+
+
+@section scripts{
+    <script type="text/javascript">
+        function Submit_Click(event) {
+            var r = confirm("Are you Sure to Proceed?");
+            return (r);
+        }
+    </script>
+}
+
+@using (Html.BeginForm("PostUserChanges", "UserMgmt"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserId)
+        <div>
+            @Html.TextBoxFor(m => m.UserId, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.UserId, "", new { @class = "text-danger" })
+        </div>
+
+        @Html.LabelFor(m => m.UserStatusId)
+        <div>
+            @Html.DropDownListFor(m => m.UserStatusId, new SelectList(Model.LOVUserStatus, "StatusId", "StatusText"), "Select", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.UserStatusId, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(m => m.Comments)
+        @Html.TextAreaFor(m => m.Comments, new { @class = "form-control" })
+    </div>
+    @Html.HiddenFor(m => m.CreatedOn)
+    <button type="submit" class="btn btn-primary" onclick="return Submit_Click();">Save</button>
+}

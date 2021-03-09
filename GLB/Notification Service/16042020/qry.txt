@@ -1,0 +1,29 @@
+select * from SitesMaster
+
+
+
+
+select distinct UnitId from UnitsMaster
+where ((rtrim(ltrim(SUBSTRING(UnitId,0,CHARINDEX('-',UnitId))))))='BQ1'
+
+select SiteId,UnitId,RdgDateTime ,
+ DATEDIFF(d,convert(datetime, RdgDateTime, 103),GETDATE()) Diff from (
+select SiteId,UnitId,CONVERT(VARCHAR(10), RdgDateTime, 103)  RdgDateTime  
+from UnitReadingRegister1 where 
+isnull(L2Approval,'N') = 'N' 
+and SiteId='BQ1'
+group by SiteId,UnitId,CONVERT(VARCHAR(10), RdgDateTime, 103)
+union all 
+select SiteId,UnitId,CONVERT(VARCHAR(10), RdgDateTime, 103)  RdgDateTime  
+from UnitReadingRegister2 where 
+isnull(L2Approval,'N') = 'N'
+and SiteId='BQ1'
+group by SiteId,UnitId,CONVERT(VARCHAR(10), RdgDateTime, 103)
+union all
+select SiteId,UnitId,CONVERT(VARCHAR(10), RdgDateTime, 103)  RdgDateTime  
+from UnitReadingRegister3 where 
+isnull(L2Approval,'N') = 'N'
+and SiteId='BQ1'
+group by SiteId,UnitId,CONVERT(VARCHAR(10), RdgDateTime, 103)) x
+where DATEDIFF(d,convert(datetime, RdgDateTime, 103),GETDATE()) In (2,3,5)
+order by CONVERT(VARCHAR(10), RdgDateTime, 103)

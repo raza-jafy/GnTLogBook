@@ -1,0 +1,350 @@
+﻿@model GenerationLogBook.ViewModels.KPIFormViewModel
+@{
+    ViewBag.Title = "KPIForm";
+}
+
+@section scripts{
+<script type="text/javascript">
+        @*var UserId = '@Model.UserId';
+        var AuthId = '@Model.AuthId';
+        var LOVUnits = @Html.Raw(Json.Encode(Model.LOVUnits));
+        var LOVForcedGrid = @Html.Raw(Json.Encode(Model.LOVForcedGrid));
+        var LOVIsGas = @Html.Raw(Json.Encode(Model.LOVIsGas));
+        var LOVIsLDC = @Html.Raw(Json.Encode(Model.LOVIsLDC));
+        var LOVIsPlanned = @Html.Raw(Json.Encode(Model.LOVIsPlanned));
+        var LOVOutageDeration = @Html.Raw(Json.Encode(Model.LOVOutageDeration));
+        var LOVStartupRamp = @Html.Raw(Json.Encode(Model.LOVStartupRamp));*@
+
+        var griddata = @Html.Raw(Json.Encode(Model.Ledger));
+        
+        $(document).ready(function () {
+            InitializeForm();
+        });
+
+        function InitializeForm() {
+            bindDataGrid(griddata);
+            $("#cmdFetchLedger").show();
+        }
+
+        function bindDataGrid(data) {
+            ledger = new $.jqx.observableArray(data, function (changed) {
+                //logic to keep track which record has been updated/added by the user
+                ledger[changed.index].ctrack = "Y";
+            });
+
+            var dsledger = {
+                localdata: ledger,
+                datatype: "obserableArray",
+                datafields: [{ name: 'theMonthStr', type: 'date' },
+                             { name: 'SiteId', type: 'string' },
+                             { name: 'KPIId', type: 'string' },
+                             { name: 'KPIText', type: 'string' },
+                             { name: 'UnitText', type: 'string' },
+                             { name: 'PrespectiveText', type: 'string' },
+                             { name: 'CreateDateStr', type: 'string' },
+                             { name: 'ActualResult', type: 'float' },
+                             { name: 'AdjustedResult', type: 'float' },
+                             { name: 'Average', type: 'float' },
+                             { name: 'Bad', type: 'float' },
+                             { name: 'Good', type: 'float' },
+                             { name: 'MaxScore', type: 'float' },
+                             { name: 'PointAchieved', type: 'float' }]
+            };
+
+            var adapledger = new $.jqx.dataAdapter(dsledger);
+
+            $("#divgrid").jqxGrid(
+            {
+                source: adapledger, width: '100%', height: '420px', sortable: false, columnsresize: true, editable: true, filterable: true, pageable: false,
+                altrows: false, showeverpresentrow: false, editmode: 'click', selectionmode: "singlerow", theme: "office", columnsheight: '40',
+                autorowheight: false, groupable: true, autoheight: false, enablebrowserselection: true, enableanimations: true, filtermode: 'excel', keyboardnavigation: false,
+                columns: [
+                {
+                    text: 'Month',
+                    datafield: 'theMonthStr',
+                    width: 100,
+                    pinned: true,
+                    cellsformat: 'MMMM-yyyy',
+                    editable: false
+                },
+                {
+                    text: 'Prespective',
+                    datafield: 'PrespectiveText',
+                    width: 120,
+                    editable: false
+                },
+                    {
+                        text: 'Measure',
+                        datafield: 'KPIText',
+                        width: 180,
+                        editable: false
+                    },
+                    {
+                        text: 'Unit',
+                        datafield: 'UnitText',
+                        width: 100,
+                        editable: false
+                    },
+                    {
+                        text: 'MaxScore',
+                        datafield: 'MaxScore',
+                        width: 70,
+                        columntype: 'numberinput',
+                        cellsformat: 'f2',
+                        renderer: function (defaultText, alignment, height) { //Required to displat Multiline Header
+                            return '<div style="text-align:center;margin: 3px 0 0 3px;">Max<br>Score</div>';
+                        },
+                        createeditor: function (row, cellvalue, editor) {
+                            editor.jqxNumberInput({ inputMode: 'simple', spinButtons: false, allowNull: true });
+                        }
+                    },
+                    {
+                        text: 'Bad',
+                        datafield: 'Bad',
+                        width: 70,
+                        columntype: 'numberinput',
+                        cellsformat: 'f2',
+                        createeditor: function (row, cellvalue, editor) {
+                            editor.jqxNumberInput({ inputMode: 'simple', spinButtons: false, allowNull: true });
+                        }
+                    },
+                    {
+                        text: 'Average',
+                        datafield: 'Average',
+                        width: 70,
+                        columntype: 'numberinput',
+                        cellsformat: 'f2',
+                        createeditor: function (row, cellvalue, editor) {
+                            editor.jqxNumberInput({ inputMode: 'simple', spinButtons: false, allowNull: true });
+                        }
+                    },
+                    {
+                        text: 'Good',
+                        datafield: 'Good',
+                        width: 70,
+                        columntype: 'numberinput',
+                        cellsformat: 'f2',
+                        createeditor: function (row, cellvalue, editor) {
+                            editor.jqxNumberInput({ inputMode: 'simple', spinButtons: false, allowNull: true });
+                        }
+                    },
+                    {
+                        text: 'Actual Result',
+                        datafield: 'ActualResult',
+                        width: 70,
+                        columntype: 'numberinput',
+                        cellsformat: 'f2',
+                        renderer: function (defaultText, alignment, height) { //Required to displat Multiline Header
+                            return '<div style="text-align:center;margin: 3px 0 0 3px;">Actual<br>Result</div>';
+                        },
+                        createeditor: function (row, cellvalue, editor) {
+                            editor.jqxNumberInput({ inputMode: 'simple', spinButtons: false, allowNull: true });
+                        }
+                    },
+                    {
+                        text: 'Adjusted Result',
+                        datafield: 'AdjustedResult',
+                        width: 70,
+                        columntype: 'numberinput',
+                        cellsformat: 'f2',
+                        renderer: function (defaultText, alignment, height) { //Required to displat Multiline Header
+                            return '<div style="text-align:center;margin: 3px 0 0 3px;">Adjusted<br>Result</div>';
+                        },
+                        createeditor: function (row, cellvalue, editor) {
+                            editor.jqxNumberInput({ inputMode: 'simple', spinButtons: false, allowNull: true });
+                        }
+                    },
+                    {
+                        text: 'Points Achieved',
+                        datafield: 'PointAchieved',
+                        width: 70,
+                        columntype: 'numberinput',
+                        cellsformat: 'f2',
+                        renderer: function (defaultText, alignment, height) { //Required to displat Multiline Header
+                            return '<div style="text-align:center;margin: 3px 0 0 3px;">Points<br>Achieved</div>';
+                        },
+                        createeditor: function (row, cellvalue, editor) {
+                            editor.jqxNumberInput({ inputMode: 'simple', spinButtons: false, allowNull: true });
+                        }
+                    }
+                ],
+                groups: ['theMonthStr']
+            });
+        }
+
+        function cmdFetchLedger_Click(){
+            showLoadingSpinner();
+            var prmFetchLedger = FetchLedger();
+            prmFetchLedger.done(FetchLedger_Success);
+            prmFetchLedger.fail(FetchLedger_Fail);
+        }
+
+        function FetchLedger() {
+            var inputparameters = { };
+
+            inputparameters.date = $('#Year').val();
+            inputparameters.UnitId = $('#Site').val();
+            var deltaJson = JSON.stringify({ 'input': inputparameters });
+
+            return $.ajax({
+                type: "POST",
+                url: '/KPI/FetchLedger',
+                data: deltaJson,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            });
+        }
+
+        var FetchLedger_Success = function (data) {
+            console.log(data);
+            hideLoadingSpinner();
+
+            if (data.Status == null) {
+                alert("Unable to get Status of response. Please try again, if problem persists contact application administrator");
+                return;
+            }
+
+            if (data.Status.CODE != "OK") {
+                alert("An Error has Occured.\n" + data.Status.CODE + ": " + data.Status.TEXT);
+                return;
+            }
+            $('#divheader').text('List of KPIs for ' + data.Site);
+
+            if (data.Ledger.length > 0) {
+                $("#cmdSaveChanges").show();
+            }
+            else {
+                $("#cmdSaveChanges").hide();
+            }
+
+            $("#cmdFetchLedger").show();
+            bindDataGrid(data.Ledger);
+        }
+
+        var FetchLedger_Fail = function (xhr) {
+            hideLoadingSpinner();
+
+            if (xhr.status == 403) {
+                showLoadingSpinner();
+                //var response = $.parseJSON(xhr.responseText);
+                var protocol = '';
+                if (window.location.protocol != '')
+                    protocol = window.location.protocol + '//';
+                else
+                    protocol = '';
+                var port = '';
+                if (window.location.port != '')
+                    port = ':' + window.location.port;
+                else
+                    port = '';
+
+                var redirectUrl = protocol + window.location.hostname + port + '/Login/Logoff';
+                window.location.assign(redirectUrl);
+                return;
+            }
+
+            if (xhr.readyState == 0) {
+                alert("An Error has Occured.\nUnable to reach to the Server");
+                return;
+            }
+
+            $('#diverrorinfo').html(xhr.responseText);
+        }
+
+        function cmdSaveChanges_Click() {
+            showLoadingSpinner();
+
+            var changes = $.grep(ledger, function (n, i) {
+                return n.ctrack == "Y";
+            });
+            //alert(changes.length + " record are changed");
+            if (changes.length == 0) {
+                hideLoadingSpinner();
+                alert('Nothing to Save');
+                return;
+            }
+
+            var prmpostChanges = postChanges(changes);
+            prmpostChanges.done(postChanges_Success);
+            prmpostChanges.fail(postChanges_Fail);
+        }
+
+        function postChanges(changes) {
+            var changesJson = JSON.stringify({ 'changes': changes });
+
+            return $.ajax({
+                type: "POST",
+                url: '/KPI/PostKPIChanges',
+                data: changesJson,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            });
+        }
+
+        var postChanges_Success = function (data) {
+            if (data.Status == null) {
+                alert("Unable to get Status of response. Please try again, if problem persists contact application administrator");
+                hideLoadingSpinner();
+                return;
+            }
+
+            if (data.Status.CODE != "OK") {
+                alert("An Error has Occured.\n" + data.Status.CODE + ": " + data.Status.TEXT);
+                hideLoadingSpinner();
+                return;
+            }
+            bindDataGrid(data.Ledger); //To refresh with recent data
+            hideLoadingSpinner();
+        }
+
+        var postChanges_Fail = function (xhr) {
+            hideLoadingSpinner();
+
+            if (xhr.status == 403) {
+                showLoadingSpinner();
+                //var response = $.parseJSON(xhr.responseText);
+                var protocol = '';
+                if (window.location.protocol != '')
+                    protocol = window.location.protocol + '//';
+                else
+                    protocol = '';
+                var port = '';
+                if (window.location.port != '')
+                    port = ':' + window.location.port;
+                else
+                    port = '';
+
+                var redirectUrl = protocol + window.location.hostname + port + '/Login/Logoff';
+                window.location.assign(redirectUrl);
+                return;
+            }
+
+            if (xhr.readyState == 0) {
+                alert("An Error has Occured.\nUnable to reach to the Server");
+                return;
+            }
+
+            $('#diverrorinfo').html(xhr.responseText);
+        }
+
+</script>
+}
+
+<div id="divheader">List of KPIs</div>
+
+
+<div id="main" class="form-inline">
+    @Html.LabelFor(m => m.Year)
+    @Html.DropDownListFor(m => m.Year, new SelectList(Model.LOVYear, "Key", "Value"), new { @class = "form-control" })
+
+    @Html.LabelFor(m => m.Site)
+    @Html.DropDownListFor(m => m.Site, new SelectList(Model.LOVSitesMaster, "SiteId", "SiteName"), new { @class = "form-control" })
+
+    <button id="cmdFetchLedger" @*style="display:none;"*@ onclick="cmdFetchLedger_Click();" class="btn btn-primary">Retrive</button>
+    <button id="cmdSaveChanges" @*style="display:none;"*@ class="btn btn-primary" onclick="cmdSaveChanges_Click();">Save Changes</button>
+</div>
+
+<div id="diverrorinfo"></div>
+<br />
+<div id="divgrid"> </div>
+@Html.Partial("_LoadingSpinner")

@@ -1,0 +1,1632 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>E:\Shared\KE Application Development\NCM\Development\.net BRDs\.net applications\GLB\GLB Deploy</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="App_Data/GenerationLogBook.mdf">
+      <publishTime>02/06/2020 10:11:34</publishTime>
+    </File>
+    <File Include="App_Data/GenerationLogBook_log.ldf">
+      <publishTime>02/06/2020 10:11:34</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>12/10/2019 14:05:23</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>12/10/2019 14:05:33</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>12/10/2019 14:05:34</publishTime>
+    </File>
+    <File Include="bin/GenerationLogBook.dll">
+      <publishTime>02/17/2020 13:49:45</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>12/10/2019 14:05:57</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>12/10/2019 14:06:08</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>12/10/2019 14:06:15</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>12/10/2019 14:06:04</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>12/10/2019 14:06:04</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>12/10/2019 14:06:04</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>12/10/2019 14:06:05</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>12/10/2019 14:06:05</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>12/10/2019 14:06:05</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>12/10/2019 14:06:05</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>12/10/2019 14:06:05</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>12/10/2019 14:06:05</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>12/10/2019 14:06:05</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>12/10/2019 14:06:05</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>12/10/2019 14:06:05</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>12/10/2019 14:05:53</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>12/10/2019 14:05:44</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>12/10/2019 14:05:49</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>12/10/2019 14:05:47</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>12/10/2019 14:05:53</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>12/10/2019 14:05:53</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>12/10/2019 14:05:53</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>12/10/2019 14:06:21</publishTime>
+    </File>
+    <File Include="Content/bootstrap-datepicker3.min.css">
+      <publishTime>12/10/2019 14:00:37</publishTime>
+    </File>
+    <File Include="Content/bootstrap.css">
+      <publishTime>12/10/2019 14:00:37</publishTime>
+    </File>
+    <File Include="Content/bootstrap.min.css">
+      <publishTime>12/10/2019 14:00:37</publishTime>
+    </File>
+    <File Include="Content/buttons.dataTables.min.css">
+      <publishTime>12/10/2019 14:00:37</publishTime>
+    </File>
+    <File Include="Content/datatables.css">
+      <publishTime>12/10/2019 14:00:37</publishTime>
+    </File>
+    <File Include="Content/DataTables/images/sort_asc.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/DataTables/images/sort_asc_disabled.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/DataTables/images/sort_both.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/DataTables/images/sort_desc.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/DataTables/images/sort_desc_disabled.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/fixedColumns.dataTables.min.css">
+      <publishTime>12/10/2019 14:00:37</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/backgroundTop.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/backImage.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/bg_black.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/bg_blackhover.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/bg_blackhover_horizontal.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/bg_blackpressed.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/bg_blackpressed_horizontal.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/bg_black_horizontal.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/bg_blueenergy.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/bg_darkblue.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/bg_darkbluehover.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/bg_darkbluepressed.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/blackbackground.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/black_gradient.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/check_black.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/check_blue.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/check_blue_indeterminate.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/check_disabled.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/check_indeterminate_black.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/check_indeterminate_disabled.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/check_indeterminate_white.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/check_lightblue.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/check_lightblue_indeterminate.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/check_white.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/close.png">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/close_black.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/close_blue.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/close_white.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/colorpicker/bar-hue.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/colorpicker/bar-saturation.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/colorpicker/map-hue.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/colorpicker/map-saturation-overlay.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/colorpicker/map-saturation.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/colorpicker/ReadMe.txt">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/colorpicker/Thumbs.db">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/common.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/crosshair-white.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/crosshair.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/darkness/ReadMe.txt">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/darkness/Thumbs.db">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/darkness/ui-bg_flat_30_cccccc_40x100.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/darkness/ui-bg_flat_50_5c5c5c_40x100.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/darkness/ui-bg_glass_20_555555_1x400.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/darkness/ui-bg_glass_40_0078a3_1x400.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/darkness/ui-bg_glass_40_ffc73d_1x400.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/darkness/ui-bg_gloss-wave_25_333333_500x100.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/darkness/ui-bg_highlight-soft_80_eeeeee_1x100.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/darkness/ui-bg_inset-soft_25_000000_1x100.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/darkness/ui-bg_inset-soft_30_f58400_1x100.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/darkness/ui-icons_222222_256x240.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/darkness/ui-icons_4b8e0b_256x240.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/darkness/ui-icons_a83300_256x240.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/darkness/ui-icons_cccccc_256x240.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/darkness/ui-icons_ffffff_256x240.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/darkred_gradient.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/drag.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/dragcancel.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/error.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/filter.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/html_editor.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/html_editor_white.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-calendar-light.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-calendar-metro-light.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-calendar-metro-yellow-light.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-calendar-white.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-calendar.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-cancel-white.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-cancel.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-delete-white.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-delete.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-down-blue.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-down-transparent.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-down-white.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-down.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-edit-white.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-edit.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-first-blue.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-first-transparent.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-first-white.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-first.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-info-small.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-last-blue.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-last-transparent.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-last-white.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-last.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-left-blue.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-left-transparent.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-left-white.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-left.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-menu-minimized-white.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-menu-minimized.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-menu-small-white.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-menu-small.png">
+      <publishTime>12/10/2019 14:00:40</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-plus-white.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-plus.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-recurrence-exception-white.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-recurrence-exception.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-recurrence-white.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-recurrence.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-right-blue.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-right-transparent.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-right-white.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-right.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-save-white.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-save.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-showpassword-white.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-showpassword.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-sort-asc-white.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-sort-asc.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-sort-desc-white.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-sort-desc.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-sort-remove-white.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-sort-remove.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-time-white.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-time.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-up-blue.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-up-transparent.png">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-up-white.png">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon-up.png">
+      <publishTime>12/10/2019 14:00:41</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon_collapse.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/icon_expand.png">
+      <publishTime>12/10/2019 14:00:39</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/info.png">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/le-frog/ReadMe.txt">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/le-frog/Thumbs.db">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/le-frog/ui-bg_diagonals-small_0_aaaaaa_40x40.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/le-frog/ui-bg_diagonals-thick_15_444444_40x40.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/le-frog/ui-bg_diagonals-thick_95_ffdc2e_40x40.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/le-frog/ui-bg_glass_55_fbf5d0_1x400.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/le-frog/ui-bg_highlight-hard_30_285c00_1x100.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/le-frog/ui-bg_highlight-soft_33_3a8104_1x100.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/le-frog/ui-bg_highlight-soft_50_4eb305_1x100.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/le-frog/ui-bg_highlight-soft_60_4ca20b_1x100.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/le-frog/ui-bg_inset-soft_10_285c00_1x100.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/le-frog/ui-icons_4eb305_256x240.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/le-frog/ui-icons_72b42d_256x240.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/le-frog/ui-icons_cd0a0a_256x240.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/le-frog/ui-icons_ffffff_256x240.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/lightness/icon-first.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/lightness/icon-last.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/lightness/ReadMe.txt">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/lightness/Thumbs.db">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/lightness/ui-bg_diagonals-thick_18_b81900_40x40.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/lightness/ui-bg_diagonals-thick_20_666666_40x40.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/lightness/ui-bg_flat_10_000000_40x100.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/lightness/ui-bg_glass_100_f6f6f6_1x400.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/lightness/ui-bg_glass_100_fdf5ce_1x400.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/lightness/ui-bg_glass_65_ffffff_1x400.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/lightness/ui-bg_gloss-wave_35_f6a828_500x100.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/lightness/ui-bg_highlight-soft_100_eeeeee_1x100.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/lightness/ui-bg_highlight-soft_75_ffe45c_1x100.png">
+      <publishTime>12/10/2019 14:00:46</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/lightness/ui-icons_222222_256x240.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/lightness/ui-icons_228ef1_256x240.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/lightness/ui-icons_ef8c08_256x240.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/lightness/ui-icons_ffd27a_256x240.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/lightness/ui-icons_ffffff_256x240.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/loader-small.gif">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/loader.gif">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/mail.png">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/material-icon-down-white.png">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/material-icon-down.png">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/material-icon-first-white.png">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/material-icon-first.png">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/material-icon-last-white.png">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/material-icon-last.png">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/material-icon-left-white.png">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/material-icon-left.png">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/material-icon-right-white.png">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/material-icon-right.png">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/material-icon-up-white.png">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/material-icon-up.png">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/material_check_black.png">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/material_check_white.png">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/menubutton.png">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/metro-icon-down-white.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/metro-icon-down.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/metro-icon-first-white.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/metro-icon-first.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/metro-icon-last-white.png">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/metro-icon-last.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/metro-icon-left-white.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/metro-icon-left.png">
+      <publishTime>12/10/2019 14:00:42</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/metro-icon-right - Copy.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/metro-icon-right-white.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/metro-icon-right.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/metro-icon-up-white.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/metro-icon-up.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/multi-arrow.gif">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/office-icon-down.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/office-icon-first.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/office-icon-last.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/office-icon-left.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/office-icon-right.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/office-icon-up.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/overcast/ReadMe.txt">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/overcast/Thumbs.db">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/overcast/ui-bg_flat_0_aaaaaa_40x100.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/overcast/ui-bg_flat_0_eeeeee_40x100.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/overcast/ui-bg_flat_55_c0402a_40x100.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/overcast/ui-bg_flat_55_eeeeee_40x100.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/overcast/ui-bg_glass_100_f8f8f8_1x400.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/overcast/ui-bg_glass_35_dddddd_1x400.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/overcast/ui-bg_glass_60_eeeeee_1x400.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/overcast/ui-bg_inset-hard_75_999999_1x100.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/overcast/ui-bg_inset-soft_50_c9c9c9_1x100.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/overcast/ui-icons_3383bb_256x240.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/overcast/ui-icons_454545_256x240.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/overcast/ui-icons_70b2e1_256x240.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/overcast/ui-icons_999999_256x240.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/overcast/ui-icons_fbc856_256x240.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/pin-black.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/pin-blue.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/pin-lightblue.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/pin-white.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/pin-yellow.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/pin.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/pinned-black.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/pinned-blue.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/pinned-lightblue.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/pinned-white.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/pinned-yellow.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/pinned.png">
+      <publishTime>12/10/2019 14:00:43</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/plus.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/plus_white.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/pointer.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/rangebar_classic.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/rangebar_darkblue.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/rangebar_shinyblack.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/rangebar_summer.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/redmond/icon-first.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/redmond/icon-last.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/redmond/ReadMe.txt">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/redmond/Thumbs.db">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/redmond/ui-bg_flat_0_aaaaaa_40x100.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/redmond/ui-bg_flat_55_fbec88_40x100.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/redmond/ui-bg_glass_75_d0e5f5_1x400.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/redmond/ui-bg_glass_85_dfeffc_1x400.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/redmond/ui-bg_glass_95_fef1ec_1x400.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/redmond/ui-bg_gloss-wave_55_5c9ccc_500x100.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/redmond/ui-bg_inset-hard_100_f5f8f9_1x100.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/redmond/ui-bg_inset-hard_100_fcfdfd_1x100.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/redmond/ui-icons_217bc0_256x240.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/redmond/ui-icons_2e83ff_256x240.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/redmond/ui-icons_469bdd_256x240.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/redmond/ui-icons_6da8d5_256x240.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/redmond/ui-icons_cd0a0a_256x240.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/redmond/ui-icons_d8e7f3_256x240.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/redmond/ui-icons_f9bd01_256x240.png">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/red_arrow_down.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/red_arrow_up.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/red_gradient.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/roundbg_check_black.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/roundbg_check_disabled.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/roundbg_check_indeterminate.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/roundbg_check_white.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/roundbg_classic_hover.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/roundbg_classic_normal.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/roundbg_disabled.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/search.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/search_white.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/smoothness/ReadMe.txt">
+      <publishTime>12/10/2019 14:00:47</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/smoothness/Thumbs.db">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/smoothness/ui-bg_flat_0_aaaaaa_40x100.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/smoothness/ui-bg_flat_75_ffffff_40x100.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/smoothness/ui-bg_glass_55_fbf9ee_1x400.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/smoothness/ui-bg_glass_65_ffffff_1x400.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/smoothness/ui-bg_glass_75_dadada_1x400.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/smoothness/ui-bg_glass_75_e6e6e6_1x400.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/smoothness/ui-bg_glass_95_fef1ec_1x400.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/smoothness/ui-bg_highlight-soft_75_cccccc_1x100.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/smoothness/ui-icons_222222_256x240.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/smoothness/ui-icons_2e83ff_256x240.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/smoothness/ui-icons_454545_256x240.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/smoothness/ui-icons_888888_256x240.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/smoothness/ui-icons_cd0a0a_256x240.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sortasc.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sortascbutton.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sortdesc.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sortdescbutton.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sortremove.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/star.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/start/ReadMe.txt">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/start/Thumbs.db">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/start/ui-bg_flat_55_999999_40x100.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/start/ui-bg_flat_75_aaaaaa_40x100.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/start/ui-bg_glass_45_0078ae_1x400.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/start/ui-bg_glass_55_f8da4e_1x400.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/start/ui-bg_glass_75_79c9ec_1x400.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/start/ui-bg_gloss-wave_45_e14f1c_500x100.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/start/ui-bg_gloss-wave_50_6eac2c_500x100.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/start/ui-bg_gloss-wave_75_2191c0_500x100.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/start/ui-bg_inset-hard_100_fcfdfd_1x100.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/start/ui-icons_0078ae_256x240.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/start/ui-icons_056b93_256x240.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/start/ui-icons_d8e7f3_256x240.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/start/ui-icons_e0fdff_256x240.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/start/ui-icons_f5e175_256x240.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/start/ui-icons_f7a50d_256x240.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/start/ui-icons_fcd113_256x240.png">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/star_disabled.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/star_hover.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/stripes.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/success.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sunny/ReadMe.txt">
+      <publishTime>12/10/2019 14:00:48</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sunny/Thumbs.db">
+      <publishTime>12/10/2019 14:00:49</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sunny/ui-bg_diagonals-medium_20_d34d17_40x40.png">
+      <publishTime>12/10/2019 14:00:49</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sunny/ui-bg_flat_30_cccccc_40x100.png">
+      <publishTime>12/10/2019 14:00:49</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sunny/ui-bg_flat_50_5c5c5c_40x100.png">
+      <publishTime>12/10/2019 14:00:49</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sunny/ui-bg_gloss-wave_45_817865_500x100.png">
+      <publishTime>12/10/2019 14:00:49</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sunny/ui-bg_gloss-wave_60_fece2f_500x100.png">
+      <publishTime>12/10/2019 14:00:49</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sunny/ui-bg_gloss-wave_70_ffdd57_500x100.png">
+      <publishTime>12/10/2019 14:00:49</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sunny/ui-bg_gloss-wave_90_fff9e5_500x100.png">
+      <publishTime>12/10/2019 14:00:49</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sunny/ui-bg_highlight-soft_100_feeebd_1x100.png">
+      <publishTime>12/10/2019 14:00:49</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sunny/ui-bg_inset-soft_30_ffffff_1x100.png">
+      <publishTime>12/10/2019 14:00:49</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sunny/ui-icons_3d3d3d_256x240.png">
+      <publishTime>12/10/2019 14:00:49</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sunny/ui-icons_bd7b00_256x240.png">
+      <publishTime>12/10/2019 14:00:49</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sunny/ui-icons_d19405_256x240.png">
+      <publishTime>12/10/2019 14:00:49</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sunny/ui-icons_eb990f_256x240.png">
+      <publishTime>12/10/2019 14:00:49</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sunny/ui-icons_ed9f26_256x240.png">
+      <publishTime>12/10/2019 14:00:49</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sunny/ui-icons_fadc7a_256x240.png">
+      <publishTime>12/10/2019 14:00:49</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/sunny/ui-icons_ffe180_256x240.png">
+      <publishTime>12/10/2019 14:00:49</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/Thumbs.db">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/tick.png">
+      <publishTime>12/10/2019 14:00:44</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/time.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/track_classic.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/track_darkblue.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/track_shinyblack.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/track_summer.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/warning.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/wp_check_indeterminate_white.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/images/wp_check_white.png">
+      <publishTime>12/10/2019 14:00:45</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/jqx.base.css">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/jqx.bootstrap.css">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/jqx.energyblue.css">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/jqx.metro.css">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/jqwidgets/jqx.office.css">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/login.jpeg">
+      <publishTime>12/10/2019 14:00:37</publishTime>
+    </File>
+    <File Include="Content/login2.jpg">
+      <publishTime>12/10/2019 14:00:37</publishTime>
+    </File>
+    <File Include="Content/Site.css">
+      <publishTime>12/10/2019 14:00:38</publishTime>
+    </File>
+    <File Include="Content/User_Avatar-512.png">
+      <publishTime>12/10/2019 14:00:37</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>12/10/2019 14:00:29</publishTime>
+    </File>
+    <File Include="FeatureSetRelease.txt">
+      <publishTime>12/10/2019 14:00:29</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.eot">
+      <publishTime>12/10/2019 14:00:49</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.svg">
+      <publishTime>12/10/2019 14:00:50</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>12/10/2019 14:00:50</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.woff">
+      <publishTime>12/10/2019 14:00:50</publishTime>
+    </File>
+    <File Include="GenerationLogBookModel.edmx.diagram">
+      <publishTime>02/06/2020 10:11:32</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>12/10/2019 14:00:29</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>12/10/2019 14:00:31</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap-datepicker.min.js">
+      <publishTime>12/10/2019 14:00:50</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.js">
+      <publishTime>12/10/2019 14:00:50</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.min.js">
+      <publishTime>12/10/2019 14:00:50</publishTime>
+    </File>
+    <File Include="Scripts/bq1.js">
+      <publishTime>01/03/2020 18:00:57</publishTime>
+    </File>
+    <File Include="Scripts/bq2.js">
+      <publishTime>01/07/2020 15:17:01</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/buttons.flash.min.js">
+      <publishTime>12/10/2019 14:00:52</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/buttons.html5.min.js">
+      <publishTime>12/10/2019 14:00:52</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/buttons.print.min.js">
+      <publishTime>12/10/2019 14:00:52</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/dataTables.buttons.min.js">
+      <publishTime>12/10/2019 14:00:52</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/dataTables.fixedColumns.min.js">
+      <publishTime>12/10/2019 14:00:52</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/datatables.js">
+      <publishTime>12/10/2019 14:00:52</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/jszip.min.js">
+      <publishTime>12/10/2019 14:00:52</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/pdfmake.min.js">
+      <publishTime>12/10/2019 14:00:53</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/vfs_fonts.js">
+      <publishTime>12/10/2019 14:00:52</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.map">
+      <publishTime>12/10/2019 14:00:51</publishTime>
+    </File>
+    <File Include="Scripts/jquery-2.2.4.js">
+      <publishTime>12/10/2019 14:00:51</publishTime>
+    </File>
+    <File Include="Scripts/jquery-ui.min.js">
+      <publishTime>12/10/2019 14:00:51</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.js">
+      <publishTime>12/10/2019 14:00:50</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.min.js">
+      <publishTime>12/10/2019 14:00:50</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.js">
+      <publishTime>12/10/2019 14:00:50</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.min.js">
+      <publishTime>12/10/2019 14:00:50</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqx-all.js">
+      <publishTime>12/10/2019 14:00:52</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxangular.js">
+      <publishTime>12/10/2019 14:00:53</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxbargauge.js">
+      <publishTime>12/10/2019 14:00:54</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxbulletchart.js">
+      <publishTime>12/10/2019 14:00:52</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxbuttongroup.js">
+      <publishTime>12/10/2019 14:00:54</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxbuttons.js">
+      <publishTime>12/10/2019 14:00:54</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxcalendar.js">
+      <publishTime>12/10/2019 14:00:54</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxchart.annotations.js">
+      <publishTime>12/10/2019 14:00:53</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxchart.api.js">
+      <publishTime>12/10/2019 14:00:54</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxchart.core.js">
+      <publishTime>12/10/2019 14:00:54</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxchart.js">
+      <publishTime>12/10/2019 14:00:54</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxchart.rangeselector.js">
+      <publishTime>12/10/2019 14:00:54</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxchart.waterfall.js">
+      <publishTime>12/10/2019 14:00:54</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxcheckbox.js">
+      <publishTime>12/10/2019 14:00:55</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxcolorpicker.js">
+      <publishTime>12/10/2019 14:00:55</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxcombobox.js">
+      <publishTime>12/10/2019 14:00:55</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxcomplexinput.js">
+      <publishTime>12/10/2019 14:00:55</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxcore.elements.js">
+      <publishTime>12/10/2019 14:00:55</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxcore.js">
+      <publishTime>12/10/2019 14:00:55</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxdata.export.js">
+      <publishTime>12/10/2019 14:00:55</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxdata.js">
+      <publishTime>12/10/2019 14:00:55</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxdatatable.js">
+      <publishTime>12/10/2019 14:00:55</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxdate.js">
+      <publishTime>12/10/2019 14:00:55</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxdatetimeinput.js">
+      <publishTime>12/10/2019 14:00:56</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxdocking.js">
+      <publishTime>12/10/2019 14:00:55</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxdockinglayout.js">
+      <publishTime>12/10/2019 14:00:56</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxdockpanel.js">
+      <publishTime>12/10/2019 14:00:56</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxdragdrop.js">
+      <publishTime>12/10/2019 14:00:56</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxdraw.js">
+      <publishTime>12/10/2019 14:00:56</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxdropdownbutton.js">
+      <publishTime>12/10/2019 14:00:56</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxdropdownlist.js">
+      <publishTime>12/10/2019 14:00:56</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxeditor.js">
+      <publishTime>12/10/2019 14:00:57</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxexpander.js">
+      <publishTime>12/10/2019 14:00:57</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxfileupload.js">
+      <publishTime>12/10/2019 14:00:57</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxformattedinput.js">
+      <publishTime>12/10/2019 14:00:57</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxgauge.js">
+      <publishTime>12/10/2019 14:00:57</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxgrid.aggregates.js">
+      <publishTime>12/10/2019 14:00:57</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxgrid.columnsreorder.js">
+      <publishTime>12/10/2019 14:00:57</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxgrid.columnsresize.js">
+      <publishTime>12/10/2019 14:00:57</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxgrid.edit.js">
+      <publishTime>12/10/2019 14:00:57</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxgrid.export.js">
+      <publishTime>12/10/2019 14:00:57</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxgrid.filter.js">
+      <publishTime>12/10/2019 14:00:57</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxgrid.grouping.js">
+      <publishTime>12/10/2019 14:00:58</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxgrid.js">
+      <publishTime>12/10/2019 14:00:58</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxgrid.pager.js">
+      <publishTime>12/10/2019 14:00:58</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxgrid.selection.js">
+      <publishTime>12/10/2019 14:00:58</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxgrid.sort.js">
+      <publishTime>12/10/2019 14:00:58</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxgrid.storage.js">
+      <publishTime>12/10/2019 14:00:58</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxinput.js">
+      <publishTime>12/10/2019 14:00:58</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxkanban.js">
+      <publishTime>12/10/2019 14:00:58</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxknob.js">
+      <publishTime>12/10/2019 14:00:58</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxknockout.js">
+      <publishTime>12/10/2019 14:00:58</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxlayout.js">
+      <publishTime>12/10/2019 14:00:58</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxlistbox.js">
+      <publishTime>12/10/2019 14:00:58</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxlistmenu.js">
+      <publishTime>12/10/2019 14:00:58</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxloader.js">
+      <publishTime>12/10/2019 14:00:59</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxmaskedinput.js">
+      <publishTime>12/10/2019 14:00:59</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxmenu.js">
+      <publishTime>12/10/2019 14:00:59</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxnavbar.js">
+      <publishTime>12/10/2019 14:00:59</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxnavigationbar.js">
+      <publishTime>12/10/2019 14:01:00</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxnotification.js">
+      <publishTime>12/10/2019 14:00:58</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxnumberinput.js">
+      <publishTime>12/10/2019 14:00:59</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxpanel.js">
+      <publishTime>12/10/2019 14:00:59</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxpasswordinput.js">
+      <publishTime>12/10/2019 14:00:59</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxpivot.js">
+      <publishTime>12/10/2019 14:00:59</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxpivotdesigner.js">
+      <publishTime>12/10/2019 14:00:59</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxpivotgrid.js">
+      <publishTime>12/10/2019 14:00:59</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxpopover.js">
+      <publishTime>12/10/2019 14:00:59</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxprogressbar.js">
+      <publishTime>12/10/2019 14:01:00</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxradiobutton.js">
+      <publishTime>12/10/2019 14:00:59</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxrangeselector.js">
+      <publishTime>12/10/2019 14:00:59</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxrating.js">
+      <publishTime>12/10/2019 14:00:59</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxresponse.js">
+      <publishTime>12/10/2019 14:00:59</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxresponsivepanel.js">
+      <publishTime>12/10/2019 14:01:00</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxribbon.js">
+      <publishTime>12/10/2019 14:01:00</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxscheduler.api.js">
+      <publishTime>12/10/2019 14:01:00</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxscheduler.js">
+      <publishTime>12/10/2019 14:01:00</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxscrollbar.js">
+      <publishTime>12/10/2019 14:01:00</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxscrollview.js">
+      <publishTime>12/10/2019 14:01:00</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxslider.js">
+      <publishTime>12/10/2019 14:01:00</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxsortable.js">
+      <publishTime>12/10/2019 14:01:00</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxsplitter.js">
+      <publishTime>12/10/2019 14:01:00</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxswitchbutton.js">
+      <publishTime>12/10/2019 14:01:00</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxtabs.js">
+      <publishTime>12/10/2019 14:01:00</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxtagcloud.js">
+      <publishTime>12/10/2019 14:01:00</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxtextarea.js">
+      <publishTime>12/10/2019 14:01:01</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxtoolbar.js">
+      <publishTime>12/10/2019 14:01:00</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxtooltip.js">
+      <publishTime>12/10/2019 14:01:01</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxtouch.js">
+      <publishTime>12/10/2019 14:01:01</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxtree.js">
+      <publishTime>12/10/2019 14:01:01</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxtreegrid.js">
+      <publishTime>12/10/2019 14:01:01</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxtreemap.js">
+      <publishTime>12/10/2019 14:01:01</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxvalidator.js">
+      <publishTime>12/10/2019 14:01:01</publishTime>
+    </File>
+    <File Include="Scripts/jqwidgets/jqxwindow.js">
+      <publishTime>12/10/2019 14:01:01</publishTime>
+    </File>
+    <File Include="Scripts/kgt.js">
+      <publishTime>01/21/2020 17:28:10</publishTime>
+    </File>
+    <File Include="Scripts/kgt_bkp.js">
+      <publishTime>12/10/2019 14:00:51</publishTime>
+    </File>
+    <File Include="Scripts/kpc.js">
+      <publishTime>01/06/2020 12:18:02</publishTime>
+    </File>
+    <File Include="Scripts/modernizr-2.6.2.js">
+      <publishTime>12/10/2019 14:00:51</publishTime>
+    </File>
+    <File Include="Scripts/respond.js">
+      <publishTime>12/10/2019 14:00:51</publishTime>
+    </File>
+    <File Include="Scripts/respond.min.js">
+      <publishTime>12/10/2019 14:00:51</publishTime>
+    </File>
+    <File Include="Scripts/sgt.js">
+      <publishTime>01/22/2020 11:32:15</publishTime>
+    </File>
+    <File Include="Scripts/_references.js">
+      <publishTime>01/02/2020 16:11:06</publishTime>
+    </File>
+    <File Include="Views/AuthorizationMgmt/Index.cshtml">
+      <publishTime>12/10/2019 14:01:02</publishTime>
+    </File>
+    <File Include="Views/AuthorizationMgmt/ModifyAuthorizationForm.cshtml">
+      <publishTime>12/10/2019 14:01:02</publishTime>
+    </File>
+    <File Include="Views/BQI/ElossDataEntryForm.cshtml">
+      <publishTime>12/17/2019 16:32:31</publishTime>
+    </File>
+    <File Include="Views/BQII/ElossDataEntryForm.cshtml">
+      <publishTime>01/01/2020 10:42:04</publishTime>
+    </File>
+    <File Include="Views/ELRReports/Index.cshtml">
+      <publishTime>12/10/2019 14:01:02</publishTime>
+    </File>
+    <File Include="Views/EmailConfigurtion/Index.cshtml">
+      <publishTime>01/31/2020 09:21:11</publishTime>
+    </File>
+    <File Include="Views/Home/About.cshtml">
+      <publishTime>12/10/2019 14:01:02</publishTime>
+    </File>
+    <File Include="Views/Home/Contact.cshtml">
+      <publishTime>12/10/2019 14:01:02</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>12/10/2019 14:01:02</publishTime>
+    </File>
+    <File Include="Views/KGT/ElossDataEntryForm.cshtml">
+      <publishTime>01/02/2020 10:57:14</publishTime>
+    </File>
+    <File Include="Views/KPC/ElossDataEntryForm.cshtml">
+      <publishTime>01/01/2020 13:09:49</publishTime>
+    </File>
+    <File Include="Views/KPI/KPIForm.cshtml">
+      <publishTime>12/10/2019 14:01:02</publishTime>
+    </File>
+    <File Include="Views/Login/Index.cshtml">
+      <publishTime>12/17/2019 15:53:03</publishTime>
+    </File>
+    <File Include="Views/SGT/ElossDataEntryForm.cshtml">
+      <publishTime>01/02/2020 10:18:02</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>12/10/2019 14:01:03</publishTime>
+    </File>
+    <File Include="Views/Shared/_ELossTemplate.cshtml">
+      <publishTime>01/15/2020 15:36:31</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>12/10/2019 14:01:02</publishTime>
+    </File>
+    <File Include="Views/Shared/_LoadingSpinner.cshtml">
+      <publishTime>12/10/2019 14:01:03</publishTime>
+    </File>
+    <File Include="Views/Shared/_MasterDataList.cshtml">
+      <publishTime>12/10/2019 14:01:02</publishTime>
+    </File>
+    <File Include="Views/Shared/_ModifyMasterDataForm.cshtml">
+      <publishTime>12/10/2019 14:01:02</publishTime>
+    </File>
+    <File Include="Views/Shared/_NavBar.cshtml">
+      <publishTime>12/10/2019 14:01:03</publishTime>
+    </File>
+    <File Include="Views/Shared/_ReportTemplate.cshtml">
+      <publishTime>12/10/2019 14:01:03</publishTime>
+    </File>
+    <File Include="Views/Shared/_SafetyForm.cshtml">
+      <publishTime>12/10/2019 14:01:03</publishTime>
+    </File>
+    <File Include="Views/Shared/_TemperatureForm.cshtml">
+      <publishTime>12/10/2019 14:01:03</publishTime>
+    </File>
+    <File Include="Views/UserMgmt/Index.cshtml">
+      <publishTime>12/10/2019 14:01:03</publishTime>
+    </File>
+    <File Include="Views/UserMgmt/ModifyUserForm.cshtml">
+      <publishTime>12/10/2019 14:01:03</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>12/10/2019 14:01:02</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>12/10/2019 14:01:02</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>02/10/2020 10:45:07</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,147 @@
+declare @numCount as bigint = 1
+declare @reportName as varchar(max)
+declare @reportQuery as nvarchar(max)
+DECLARE @STMT VARCHAR(MAX)
+DECLARE @bm CURSOR
+SET @bm = CURSOR FOR
+select isnull(ReportName,'NA'),isnull(ReportQuery,'NA') from sendDBReport  where isActive=1 and (ID<=3)  ORDER BY CDateTime
+OPEN @bm
+FETCH NEXT FROM @bm INTO @reportName,@reportQuery
+WHILE @@FETCH_STATUS = 0
+BEGIN
+
+declare @fileName as nvarchar(max),@RtnCode as bigint
+set @fileName  = concat(@reportName,'_',(cast(DAY(GETDATE()) as varchar(max))),'_',
+(cast(MONTH(GETDATE()) as varchar(max))),'_',(cast(YEAR(GETDATE()) as varchar(max))),'.csv')								
+select top 1 @reportQuery = isnull(ReportQuery,'NA') from sendDBReport where ReportName = @reportName and ID=@numCount	
+
+if @numCount=1
+begin
+
+DECLARE @countA TABLE(CaseID varchar(max),
+ApplicantName varchar(max),PremisType varchar(max),ServiceType varchar(max),Load float,TransAmount float,
+CaseType varchar(max),IssueDate date,ExpiryDate smalldatetime)
+
+INSERT INTO @countA 
+EXEC sp_executesql  @reportQuery
+
+IF OBJECT_ID('tempdb..##TEMPTABLEA') IS NOT NULL
+BEGIN
+drop table ##TEMPTABLEA
+END
+
+
+select * into ##TEMPTABLEA FROM @countA 
+SET @STMT = ''
+SET @STMT = 'SELECT * FROM ##TEMPTABLEA'
+
+
+	EXEC @RtnCode =  msdb.dbo.sp_send_dbmail @profile_name='LDCGEN', @body_format = 'HTML',
+				@recipients='rabha.shoaib@ke.com.pk',
+				@copy_recipients = 'rabha.shoaib@ke.com.pk',
+				@subject= 'System Generated Report',
+				@query =   @STMT,
+				@Attach_Query_result_as_file = 1,
+				@query_attachment_filename = @fileName,
+				@body='System Generated Report',@query_result_separator='$',@query_result_width =32767,
+				@query_result_no_padding=1
+
+
+				IF @RtnCode <> 0
+				begin
+					  RAISERROR('Error.', 16, 1)
+				end
+
+
+end
+
+
+else if @numCount=2
+begin
+
+DECLARE @countB TABLE(CaseID varchar(max),
+ApplicantName varchar(max),PremisType varchar(max),ServiceType varchar(max),Load float,TransAmount float,
+CaseType varchar(max),IssueDate date,ExpiryDate smalldatetime,PaymentDate varchar(max),DATEDIFFs INT,ApplicationNumber BIGINT)
+
+INSERT INTO @countB 
+EXEC sp_executesql  @reportQuery
+
+IF OBJECT_ID('tempdb..##TEMPTABLEB') IS NOT NULL
+BEGIN
+drop table ##TEMPTABLEB
+END
+
+select * into ##TEMPTABLEB FROM @countB 
+SET @STMT = ''
+SET @STMT = 'SELECT * FROM ##TEMPTABLEB'
+
+	EXEC @RtnCode =  msdb.dbo.sp_send_dbmail @profile_name='LDCGEN', @body_format = 'HTML',
+				@recipients='rabha.shoaib@ke.com.pk',
+				@copy_recipients = 'rabha.shoaib@ke.com.pk',
+				@subject= 'System Generated Report',
+				@query =   @STMT,
+				@Attach_Query_result_as_file = 1,
+				@query_attachment_filename = @fileName,
+				@body='System Generated Report',@query_result_separator='$',@query_result_width =32767,
+				@query_result_no_padding=1
+
+
+				IF @RtnCode <> 0
+				begin
+					  RAISERROR('Error.', 16, 1)
+				end
+
+
+end
+
+else if @numCount=3
+begin
+
+DECLARE @countC TABLE(CaseID varchar(max),
+ApplicantName varchar(max),PremisType varchar(max),ServiceType varchar(max),Load float,TransAmount float,
+CaseType varchar(max),IssueDate date,ExpiryDate smalldatetime,PaymentDate varchar(max),DATEDIFFs INT  )
+
+INSERT INTO @countC 
+EXEC sp_executesql  @reportQuery
+
+IF OBJECT_ID('tempdb..##TEMPTABLEC') IS NOT NULL
+BEGIN
+drop table ##TEMPTABLEC
+END
+
+select * into ##TEMPTABLEC FROM @countC
+SET @STMT = ''
+SET @STMT = 'SELECT * FROM ##TEMPTABLEC'
+
+
+	EXEC @RtnCode =  msdb.dbo.sp_send_dbmail @profile_name='LDCGEN', @body_format = 'HTML',
+				@recipients='rabha.shoaib@ke.com.pk',
+				@copy_recipients = 'rabha.shoaib@ke.com.pk',
+				@subject= 'System Generated Report',
+				@query =   @STMT,
+				@Attach_Query_result_as_file = 1,
+				@query_attachment_filename = @fileName,
+				@body='System Generated Report',@query_result_separator='$',@query_result_width =32767,
+				@query_result_no_padding=1
+
+
+				IF @RtnCode <> 0
+				begin
+					  RAISERROR('Error.', 16, 1)
+				end
+
+
+end
+
+
+
+
+
+set @numCount = @numCount +1
+
+
+FETCH NEXT FROM @bm INTO @reportName,@reportQuery
+
+END
+CLOSE @bm
+DEALLOCATE @bm

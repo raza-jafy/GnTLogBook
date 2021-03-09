@@ -1,0 +1,18 @@
+﻿Next Release Features
+1. Ambient Pressure Column has been removed from KPC Loss Entry Form
+2. Ambient Temperature unit changed to Degree C
+3. Sea Water Temperature unit changed to Degree C 
+4. Reference Capacity column has been removed from KPC Loss Entry Form
+5. Temperature Data Entry Form has been added, and linked with KPC Loss Entry Form
+6. Inclusion of day's 23:59 Hrs entry in Loss Entry Form with default carry forward behaviour to next day's 00 Hrs entry 
+7. Correction of User Authorization Update Issue
+8. Right click Copy/Paste context menu has been provided to reduce data entry efforts in loss entry grid
+9. Right click Add Below context menu has been provided to reduce data entry efforts in loss entry grid
+10. Safety Data Entry Form has been made available for all five Stations
+11. Master Data Entry Forms have been made available for all five stations to update GDC & Reference Capacity of Units
+12. For KGTPS & SGTPS default dispatch MW value of each section engine has been set as 2.739 
+13. System now prompt regarding unsaved data, when user click on retrieve button and there exist some unsaved record in the loss entry form
+14. For KGTPS & SGTPS loss form only two values (0 or 2.739) are allowed in dispatch MW columns. All other values are not accepted by the system
+15. For KGTPS & SGTPS loss form Default Dispatch MW of ST has been set as 8.6
+16. For KGTPS & SGTPS loss form Default Temp in ST Form has been set as 35 C
+17. In KPC loss form, Ambient deration is now calculated based on formula given by user

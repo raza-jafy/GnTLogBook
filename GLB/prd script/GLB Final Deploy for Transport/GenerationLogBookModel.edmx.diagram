@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d3b87e48f3264115ae74c13202a7ecfe" Name="Diagram1">
+        <EntityTypeShape EntityType="GenerationQAModel.AuthStatus" Width="1.5" PointX="6" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.KPIMaster" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.KPIRegister" Width="1.5" PointX="3" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.ModuleAuthMaster" Width="1.5" PointX="6" PointY="29.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.Module" Width="1.5" PointX="3.75" PointY="22.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.MonthlyWorkHoursRegister" Width="1.5" PointX="3" PointY="25.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.ReportList" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.SiteSafetyRegister" Width="1.5" PointX="3" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.SitesMaster" Width="1.5" PointX="0.75" PointY="28.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.TemperatureRegister" Width="1.5" PointX="3" PointY="33.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.UnitReadingRegister1" Width="1.5" PointX="5.25" PointY="42.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.UnitReadingRegister2" Width="1.5" PointX="8.25" PointY="42.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.UnitReadingRegister3" Width="1.5" PointX="11.25" PointY="43.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.UnitsMaster" Width="1.5" PointX="3" PointY="60.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.UserAuthorization" Width="1.5" PointX="8.25" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.User" Width="1.5" PointX="6" PointY="37.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.UserStatus" Width="1.5" PointX="3.75" PointY="38" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.xEmailReminderRecipient" Width="1.5" PointX="3" PointY="65.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.xEmailReminderRecipientsForNotification" Width="1.5" PointX="3" PointY="68.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.SiteSafetyRegisterHistorian" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.UnitReadingRegister1Historian" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.UnitReadingRegister2Historian" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.UnitReadingRegister3Historian" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VMenuMaster" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VMonthYear" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTDaily_KGTPS_Final" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTDaily_KGTPS_Station_Final" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTDaily_SGTPS_Final" Width="2.5" PointX="10.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTDaily_SGTPS_Station_Final" Width="1.5" PointX="5.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTDailyBQPS2_StationwiseFinal" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTDailyKPC_StationFinal" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTDailyKPC_UnitWiseFinal" Width="1.5" PointX="7.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTDailySitewiseKPCFinal" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTDailySitewiseReg1CFinal" Width="2.375" PointX="14.375" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTDailyUnitwiseBQPS2_Stationwise_A" Width="1.5" PointX="14.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTDailyUnitwiseFinal" Width="1.5" PointX="14.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTDailyUnitwiseReg1AFinal" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTDailyUnitwiseReg1CFinal" Width="1.5" PointX="16.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTDailyUnitwiseReg1DFinal" Width="2.375" PointX="18.375" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTDailyUnitwiseReg3Final" Width="1.5" PointX="18.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlySitewiseKPC1" Width="1.5" PointX="9.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlySitewiseKPC10" Width="1.5" PointX="11.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlySitewiseKPC2" Width="1.5" PointX="18.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlySitewiseKPC3" Width="1.5" PointX="20.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlySitewiseKPC4" Width="1.5" PointX="20.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlySitewiseKPC5" Width="1.875" PointX="22.375" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlySitewiseKPC6" Width="1.5" PointX="24.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlySitewiseKPC7" Width="1.5" PointX="13.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlySitewiseKPC8" Width="1.5" PointX="15.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlySitewiseKPC9" Width="1.5" PointX="24.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlySitewiseKPCFinal" Width="1.5" PointX="26.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg1A_1" Width="1.5" PointX="26.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg1A_2" Width="1.5" PointX="26.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg1A_3" Width="1.5" PointX="26.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg1A_4" Width="1.5" PointX="28.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg1A_5" Width="1.5" PointX="28.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg1A_6" Width="1.5" PointX="28.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg1AFinal" Width="1.5" PointX="30.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg1AFinal_updated" Width="1.5" PointX="30.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg1B_1" Width="1.5" PointX="30.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg1BFinal" Width="1.5" PointX="32.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg1C_1" Width="1.5" PointX="32.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg1CFinal" Width="1.5" PointX="32.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg1cFinal_updated" Width="1.5" PointX="32.75" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg1D_1" Width="1.5" PointX="34.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg1D_2" Width="1.5" PointX="34.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg1D_3" Width="1.5" PointX="34.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg1D_4" Width="1.5" PointX="34.75" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg1D_5" Width="1.5" PointX="36.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg1DFinal" Width="1.5" PointX="36.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg2_1" Width="1.5" PointX="36.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg2_2" Width="1.5" PointX="0.75" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg2_3" Width="1.5" PointX="17.75" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg2Final" Width="1.5" PointX="38.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg3_1" Width="1.5" PointX="8.75" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg3_2" Width="1.5" PointX="38.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg3_3" Width="1.5" PointX="38.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg3_4" Width="1.5" PointX="26.75" PointY="38.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg3_5" Width="1.5" PointX="28.75" PointY="38.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg3Final" Width="1.5" PointX="38.75" PointY="34.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTHourlyUnitwiseReg3Final_update" Width="1.5" PointX="40.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTMonthly_KGTPS_StationFinal" Width="1.5" PointX="40.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTMonthly_KGTPS_UnitWiseFinal" Width="1.5" PointX="40.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTMonthly_SGTPS_StationFinal" Width="1.5" PointX="40.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTMonthly_SGTPS_UnitWiseFinal" Width="1.5" PointX="40.75" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTMonthlyKPC_StationFinal" Width="1.5" PointX="42.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTMonthlyKPC_UnitWiseFinal" Width="1.5" PointX="42.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTMonthlySitewiseBQPS2_Final" Width="1.5" PointX="42.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTMonthlySitewiseReg1CFinal" Width="1.5" PointX="19.75" PointY="42.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTMonthlyUnitwiseBQPS2_A" Width="1.5" PointX="21.75" PointY="42.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTMonthlyUnitwiseBQPS2_Final" Width="1.5" PointX="42.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTMonthlyUnitwiseReg1CFinal" Width="1.5" PointX="42.75" PointY="34.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VRPTMonthlyUnitwiseReg3Final" Width="1.5" PointX="34.75" PointY="42.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VUnitReadingRegister1" Width="1.5" PointX="36.75" PointY="43.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VUnitReadingRegister2" Width="1.5" PointX="42.75" PointY="43.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenerationQAModel.VUnitReadingRegister3" Width="1.5" PointX="44.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="GenerationQAModel.FKUserAuthorizationsToAuthStatuses" ManuallyRouted="false" />
+        <AssociationConnector Association="GenerationQAModel.FKKPIRegisterToSitesMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="GenerationQAModel.FKModuleAuthMasterToModules" ManuallyRouted="false" />
+        <AssociationConnector Association="GenerationQAModel.FKModuleAuthMasterToSitesMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="GenerationQAModel.FKUserAuthorizationsToModuleAuthMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="GenerationQAModel.FKMonthlyWorkHoursRegisterToSitesMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="GenerationQAModel.FKSiteSafetyRegToSitesMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="GenerationQAModel.FK__xEmailRem__SiteI__40F9A68C" ManuallyRouted="false" />
+        <AssociationConnector Association="GenerationQAModel.FK__xEmailRem__SiteI__41EDCAC5" ManuallyRouted="false" />
+        <AssociationConnector Association="GenerationQAModel.FK__xEmailRem__SiteI__47A6A41B" ManuallyRouted="false" />
+        <AssociationConnector Association="GenerationQAModel.FKTemperatureRegisterToSitesMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="GenerationQAModel.FKUnitReadingRegister1ToSitesMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="GenerationQAModel.FKUnitReadingRegister2ToSitesMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="GenerationQAModel.FKUnitReadingRegister3ToSitesMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="GenerationQAModel.FKUnitsMasterToSitesMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="GenerationQAModel.FKUnitReadingRegister1ToUnitsMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="GenerationQAModel.FKUnitReadingRegister2ToUnitsMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="GenerationQAModel.FKUnitReadingRegister3ToUnitsMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="GenerationQAModel.FKUserAuthorizationsToUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="GenerationQAModel.FKUsersToUserStatuses" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

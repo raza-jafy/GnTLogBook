@@ -1,0 +1,68 @@
+﻿@model GenerationLogBook.ViewModels.AuthorizationFormViewModel
+@{
+    ViewBag.Title = "ModifyAuthorization";
+}
+
+@section scripts{
+    <script type="text/javascript">
+        var lovAuth = @Html.Raw(Json.Encode(Model.LOVAuthorizations));
+        var auth = '@Model.authorization.AuthId';
+
+        function RefreshAuthDDL(action){
+            var auth = $('#authorization_AuthId').val();
+            if (action == 'change' || auth == null){
+                var station = $('#SiteId').val();
+                //alert(station);
+                filterauth = $.grep(lovAuth, function (n, i) {
+                    return n.ParentKey == station;
+                });
+
+                $('#authorization_AuthId').empty();
+                for (var i = 0 ; i < filterauth.length; i++) {
+                    $('#authorization_AuthId').append('<option value="' + filterauth[i].Key + '">' + filterauth[i].Value + '</option>');
+                }
+            }
+        }
+
+        $(document).ready(function () {
+            RefreshAuthDDL(auth);
+            $('#SiteId').change(function () {
+                RefreshAuthDDL('change');
+            });
+        });
+
+        function Submit_Click(event) {
+            var x = $('#authorization_AuthId').val();
+            if (x == null || x == ''){
+                alert('Please Select Authorization before saving');
+                return (false);
+            }
+            return (true);
+        }
+
+    </script>
+}
+
+<h2>ModifyAuthorization</h2>
+@using (Html.BeginForm("PostChanges", "AuthorizationMgmt"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.authorization.UserId)
+        @Html.TextBoxFor(m => m.authorization.UserId, new { @class = "form-control", @readonly = "readonly" })
+
+        <label for="SiteId">Site</label>
+        @Html.DropDownListFor(m => m.SiteId , new SelectList(Model.LOVSitesMaster, "SiteId", "SiteName"), new { @class = "form-control" })
+
+        @Html.LabelFor(m => m.authorization.AuthId)
+        @Html.DropDownListFor(m => m.authorization.AuthId, new SelectList(Model.LOVModuleAuthMaster, "AuthId", "AuthText"), new { @class = "form-control" })
+        
+        @Html.LabelFor(m => m.authorization.AuthStatusId)
+        @Html.DropDownListFor(m => m.authorization.AuthStatusId, new SelectList(Model.LOVAuthorizationStatus, "AuthStatusId", "AuthStatusText"), new { @class = "form-control" })
+
+        @Html.LabelFor(m => m.authorization.Comments)
+        @Html.TextAreaFor(m => m.authorization.Comments, new { @class = "form-control" })
+    </div>
+    @Html.HiddenFor(m => m.authorization.CreatedOn)
+    @Html.HiddenFor(m => m.UserSequenceNo)
+    <button type="submit" class="btn btn-primary" onclick="return Submit_Click();">Save</button>
+}

@@ -1,0 +1,37 @@
+﻿@model GenerationLogBook.UnitsMaster
+@{
+    ViewBag.Title = "Modify Master Data";
+}
+
+@{
+    var controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+}
+
+<h2>Modify MasterData</h2>
+@using (Html.BeginForm("PostMasterDataChanges", controllerName))
+{
+    <div>
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <div>
+            @Html.LabelFor( m => m.SitesMaster.SiteName )
+            @Html.TextBoxFor( m => m.SitesMaster.SiteName, new { @class = "form-control", @readonly ="readonly" } )
+        </div>
+        <div>
+            @Html.LabelFor(m => m.UnitName)
+            @Html.TextBoxFor(m => m.UnitName, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+        <div>
+            @Html.LabelFor(m => m.GDC)
+            @Html.TextBoxFor(m => m.GDC, new { @class = "form-control"})
+        </div>
+        <div>
+            @Html.LabelFor(m => m.ReferenceCapacity)
+            @Html.TextBoxFor(m => m.ReferenceCapacity, new { @class = "form-control" })
+        </div>
+    </div>
+    @Html.HiddenFor( m => m.UnitId )
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+

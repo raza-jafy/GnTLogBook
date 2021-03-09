@@ -1,0 +1,429 @@
+﻿@model GenerationLogBook.ViewModels.TemperatureFormViewModel
+@{
+    ViewBag.Title = "TemperatureForm";
+}
+
+@section scripts{
+    <script type="text/javascript">
+        @*var UserId = '@Model.UserId';
+        var AuthId = '@Model.AuthId';
+        var LOVUnits = @Html.Raw(Json.Encode(Model.LOVUnits));
+        var LOVForcedGrid = @Html.Raw(Json.Encode(Model.LOVForcedGrid));
+        var LOVIsGas = @Html.Raw(Json.Encode(Model.LOVIsGas));
+        var LOVIsLDC = @Html.Raw(Json.Encode(Model.LOVIsLDC));
+        var LOVIsPlanned = @Html.Raw(Json.Encode(Model.LOVIsPlanned));
+        var LOVOutageDeration = @Html.Raw(Json.Encode(Model.LOVOutageDeration));
+        var LOVStartupRamp = @Html.Raw(Json.Encode(Model.LOVStartupRamp));*@
+
+        var griddata = @Html.Raw(Json.Encode(Model.Ledger));
+        var hiddenCols = @Html.Raw(Json.Encode(Model.hiddenCols));
+        var controller = '@Model.Controller';
+
+        $(document).ready(function () {
+            InitializeForm();
+        });
+
+        function InitializeForm() {
+            $('#selectdate').keydown(function (e) {
+                e.preventDefault();
+            });
+
+            $('#selectdate').focus(function () {
+                $('#selectdate').blur();
+            });
+
+            $('#selectdate').datepicker({
+                defaultDate: new Date(),
+                autoclose: true,
+                todayHighlight: true,
+                format: 'dd-MM-yyyy',
+                endDate: new Date()
+            });
+            var today = new Date();
+            $('#selectdate').datepicker('setDate', new Date(today.getFullYear(), today.getMonth(), today.getDate()));
+
+            $('.modal-dialog-popup').draggable({
+                handle: ".modal-header"
+            });
+
+            for (var i = 0 ; i < 24; i++) {
+                $('#hour').append('<option value="' + ("00" + i).substr(-2, 2) + '">' + ("00" + i).substr(-2, 2) + '</option>');
+            }
+
+            for (var i = 0 ; i < 60; i++) {
+                $('#minute').append('<option value="' + ("00" + i).substr(-2, 2) + '">' + ("00" + i).substr(-2, 2) + '</option>');
+            }
+
+            bindDataGrid(griddata);
+            $("#cmdFetchLedger").show();
+        }
+
+        function bindDataGrid(data) {
+            ledger = new $.jqx.observableArray(data, function (changed) {
+                //logic to keep track which record has been updated/added by the user
+                ledger[changed.index].ctrack = "Y";
+            });
+
+            var dsledger = {
+                localdata: ledger,
+                datatype: "obserableArray",
+                datafields: [{ name: 'SiteId', type: 'string' },
+                             { name: 'RdgDateTimeStr', type: 'date' },
+                             { name: 'AmbTemp', type: 'float' },
+                             { name: 'SeaWaterTemp', type: 'float' }]
+            };
+
+            var adapledger = new $.jqx.dataAdapter(dsledger);
+
+            $("#divgrid").jqxGrid(
+            {
+                source: adapledger, width: '100%', height: '420px', sortable: true, columnsresize: true, editable: true, filterable: true, pageable: false,
+                altrows: false, showeverpresentrow: false, editmode: 'click', selectionmode: "singlerow", theme: "office", columnsheight: '40',
+                autorowheight: false, autoheight: false, enablebrowserselection: true, enableanimations: true, filtermode: 'excel', keyboardnavigation: false,
+                /*handlekeyboardnavigation: function (event) {
+                    console.log(event);
+                    console.log(event.keyCode);
+                    console.log(event.charCode);
+                    //alert(event.keyCode);
+                    return true;
+                    
+                    var key = event.charCode ? event.charCode : event.keyCode ? event.keyCode : 0;
+                    if (key == 13 || key == 40) {
+                        var rowidx = $("#divgrid").jqxGrid('getselectedrowindex');
+                        console.log('getselectedrowindex: ' + rowidx);
+                        var boundidx = $('#divgrid').jqxGrid('getrowboundindex', rowidx);
+                        console.log('getrowboundindex: ' + boundidx);
+                        //get data of the rowidx, take date from it
+                        var rowdata = $("#divgrid").jqxGrid('getrowdata', rowidx);
+                        var pk = new Date(rowdata.RdgDateTimeStr);
+                        console.log('Selected: ' + pk);
+                        var rows = $('#divgrid').jqxGrid('getrows');
+
+                        var i;
+                        for (i = 0 ; i < rows.length; i++) {
+                            var thisdate = new Date(rows[i].RdgDateTimeStr);
+                            if (thisdate.valueOf() == pk.valueOf())
+                                break;
+                        }
+                        // call a function getvisiblerowid which take date from previous step
+                        //getvisiblerowid() does following
+                        //rows = $('#divgrid').jqxGrid('getrows');
+                        //iterate through rows and return index where rows.date = parameter_date. The return index is visible index
+                        console.log('i = ' + i);
+                        var visibleidx = i;
+
+                        //alert('Pressed Enter Key.' + rowidx + '/' + $("#divgrid").jqxGrid('getselectedcell'));
+                        //$('#divgrid').jqxGrid('selectcell', 2, 'E1ActualDispatchMW');
+                        var rows = $('#divgrid').jqxGrid('getrows');
+
+
+                        //$("#divgrid").jqxGrid('begincelledit', boundidx, "E1ActualDispatchMW");
+                        $('#divgrid').jqxGrid({ selectedrowindex: visibleidx +1 });
+                        return true;
+                    }
+                    else if (key == 27) {
+                        alert('Pressed Esc Key.');
+                        return false;
+                    }
+                    else if (key == 38){
+                        alert('ds');
+                        return true;
+                    }
+                },*/
+            columns: [
+            {
+                text: 'DateTime',
+                datafield: 'RdgDateTimeStr',
+                width: 150,
+                pinned: true,
+                cellsformat: 'dd-MMM-yy HH:mm',
+                editable: false
+            },
+            {
+                text: 'AmbTemp',
+                datafield: 'AmbTemp',
+                width: 150,
+                renderer: function (defaultText, alignment, height) { //Required to displat Multiline Header
+                    return '<div style="text-align:center;margin: 3px 0 0 3px;">Ambient Temperature<br>(Degree C)</div>';
+                },
+                columntype: 'numberinput',
+                cellsformat: 'f2',
+                createeditor: function (row, cellvalue, editor) {
+                    editor.jqxNumberInput({ inputMode: 'simple', spinButtons: false });
+                }
+            },
+                {
+                    text: 'SeaWaterTemp',
+                    datafield: 'SeaWaterTemp',
+                    width: 150,
+                    renderer: function (defaultText, alignment, height) { //Required to displat Multiline Header
+                        return '<div style="text-align:center;margin: 3px 0 0 3px;">Sea Water Temperature<br>(Degree C)</div>';
+                    },
+                    columntype: 'numberinput',
+                    cellsformat: 'f2',
+                    createeditor: function (row, cellvalue, editor) {
+                        editor.jqxNumberInput({ inputMode: 'simple', spinButtons: false, allowNull: true });
+                    }
+                  }
+                ]
+            });
+
+            for (var i = 0; i < hiddenCols.length; i++) {
+                $('#divgrid').jqxGrid('hidecolumn', hiddenCols[i]);
+            }
+        }
+
+        function cmdFetchLedger_Click(){
+            showLoadingSpinner();
+            var prmFetchLedger = FetchLedger();
+            prmFetchLedger.done(FetchLedger_Success);
+            prmFetchLedger.fail(FetchLedger_Fail);
+        }
+
+        function FetchLedger() {
+            var inputparameters = { };
+            var inputcollection = [];
+
+            inputparameters.date = $('#selectdate').val();
+            console.log(inputparameters);
+            inputcollection.push(inputparameters);
+
+            var deltaJson = JSON.stringify({ 'input': inputcollection });
+
+            return $.ajax({
+                type: "POST",
+                url: '/'+controller+'/FetchTemperatureLedger',
+                data: deltaJson,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            });
+        }
+
+        var FetchLedger_Success = function (data) {
+            console.log(data);
+            hideLoadingSpinner();
+
+            if (data.Status == null) {
+                alert("Unable to get Status of response. Please try again, if problem persists contact application administrator");
+                return;
+            }
+
+            if (data.Status.CODE != "OK") {
+                alert("An Error has Occured.\n" + data.Status.CODE + ": " + data.Status.TEXT);
+                return;
+            }
+            $('#divheader').text(data.FormHeading);
+
+            if (data.Ledger.length > 0) {
+                $("#cmdSaveChanges").show();
+                $("#cmdAddNew").show();
+               // $("#cmdReport").show();
+
+            }
+            else {
+                $("#cmdSaveChanges").hide();
+                $("#cmdAddNew").hide();
+                //$("#cmdReport").hide();
+            }
+
+            $("#cmdFetchLedger").show();
+            bindDataGrid(data.Ledger);
+        }
+
+        var FetchLedger_Fail = function (xhr) {
+            hideLoadingSpinner();
+
+            if (xhr.status == 403) {
+                showLoadingSpinner();
+                //var response = $.parseJSON(xhr.responseText);
+                var protocol = '';
+                if (window.location.protocol != '')
+                    protocol = window.location.protocol + '//';
+                else
+                    protocol = '';
+                var port = '';
+                if (window.location.port != '')
+                    port = ':' + window.location.port;
+                else
+                    port = '';
+
+                var redirectUrl = protocol + window.location.hostname + port + '/Login/Logoff';
+                window.location.assign(redirectUrl);
+                return;
+            }
+
+            if (xhr.readyState == 0) {
+                alert("An Error has Occured.\nUnable to reach to the Server");
+                return;
+            }
+
+            $('#diverrorinfo').html(xhr.responseText);
+        }
+
+        function cmdSaveChanges_Click() {
+            showLoadingSpinner();
+
+            var changes = $.grep(ledger, function (n, i) {
+                return n.ctrack == "Y";
+            });
+            //alert(changes.length + " record are changed");
+            if (changes.length == 0) {
+                hideLoadingSpinner();
+                alert('Nothing to Save');
+                return;
+            }
+
+            var prmpostChanges = postChanges(changes);
+            prmpostChanges.done(postChanges_Success);
+            prmpostChanges.fail(postChanges_Fail);
+        }
+
+        function postChanges(changes) {
+            var changesJson = JSON.stringify({ 'changes': changes });
+
+            return $.ajax({
+                type: "POST",
+                url: '/'+controller+'/PostTemperatureSheet',
+                data: changesJson,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            });
+        }
+
+        var postChanges_Success = function (data) {
+            if (data.Status == null) {
+                alert("Unable to get Status of response. Please try again, if problem persists contact application administrator");
+                hideLoadingSpinner();
+                return;
+            }
+
+            if (data.Status.CODE != "OK") {
+                alert("An Error has Occured.\n" + data.Status.CODE + ": " + data.Status.TEXT);
+                hideLoadingSpinner();
+                return;
+            }
+            bindDataGrid(data.Ledger); //To refresh with recent data
+            hideLoadingSpinner();
+        }
+
+        var postChanges_Fail = function (xhr) {
+            hideLoadingSpinner();
+
+            if (xhr.status == 403) {
+                showLoadingSpinner();
+                //var response = $.parseJSON(xhr.responseText);
+                var protocol = '';
+                if (window.location.protocol != '')
+                    protocol = window.location.protocol + '//';
+                else
+                    protocol = '';
+                var port = '';
+                if (window.location.port != '')
+                    port = ':' + window.location.port;
+                else
+                    port = '';
+
+                var redirectUrl = protocol + window.location.hostname + port + '/Login/Logoff';
+                window.location.assign(redirectUrl);
+                return;
+            }
+
+            if (xhr.readyState == 0) {
+                alert("An Error has Occured.\nUnable to reach to the Server");
+                return;
+            }
+
+            $('#diverrorinfo').html(xhr.responseText);
+        }
+
+        function cmdConfirm_Click() {
+            var d = new Date(ledger[0].RdgDateTimeStr);
+            d.setHours($("#hour").val());
+            d.setMinutes($("#minute").val());
+            //alert(d);
+            var x = new Date();
+            if (d.valueOf() > x.valueOf()) {
+                alert("Entry in future Date/Time Not Allowed.");
+                return;
+            }
+
+            var isexists = $.grep(ledger, function (n, i) {
+                return new Date(n.RdgDateTimeStr).valueOf() == d.valueOf();
+            });
+            if (isexists.length > 0) {
+                alert('DateTime already exists in the sheet');
+            }
+            else {
+                var sortedledger = ledger.sort(function(a, b) {
+                    var dateA = new Date(a.RdgDateTimeStr), dateB = new Date(b.RdgDateTimeStr);
+                    return dateA - dateB;
+                });
+
+                for(var i=0; i< sortedledger.length ; i++ ){
+                    if(new Date(sortedledger[i].RdgDateTimeStr).valueOf() > d.valueOf()){
+                        var refrecord = sortedledger[i-1];
+                        break;
+                    }
+            }
+                var newentry = createnewledgerentry(d, refrecord);
+                ledger.push(newentry);
+                $('#divgrid').jqxGrid('selectrow', ledger.length - 1);
+                $('#divgrid').jqxGrid('sortby', 'RdgDateTimeStr', 'asc');
+                $('#myModal').modal('hide');
+            }
+            //alert(isexists.length + ' Records found');
+        }
+
+        function createnewledgerentry(datetime, ledgerparams){
+            return { RdgDateTimeStr: datetime, SiteId: ledgerparams.SiteId, AmbTemp: ledgerparams.AmbTemp, SeaWaterTemp: ledgerparams.SeaWaterTemp};
+        }
+
+    </script>
+}
+
+<br />
+<div id="divheader">Temperature Recording Sheet</div>
+<div id="main" class="form-inline">
+    <label for="selectdate">Date</label>
+    <input id="selectdate" class="form-control input-sm" />
+    <button id="cmdFetchLedger" style="display:none;" onclick="cmdFetchLedger_Click();" class="btn btn-primary">Retrive</button>
+    <button id="cmdSaveChanges" style="display:none;" class="btn btn-primary" onclick="cmdSaveChanges_Click();">Save Changes</button>
+    <button id="cmdAddNew" style="display:none;" class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-backdrop="static">Add New</button>
+</div>
+
+<div id="diverrorinfo"></div>
+<div id="divgrid"> </div>
+@Html.Partial("_LoadingSpinner")
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="customclose close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Create New Entry</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    @*<div class="col-xs-4">
+                            <label for="ex1">Day</label>
+                            <input class="form-control input-sm" id="AddDate" disabled="disabled">
+                        </div>*@
+                    <div class="col-xs-4">
+                        <label for="ex2">Hour</label>
+                        <select class="form-control input-sm" id="hour"></select>
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="ex3">Minute</label>
+                        <select class="form-control input-sm" id="minute"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" onclick="cmdConfirm_Click();">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>

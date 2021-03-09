@@ -1,0 +1,532 @@
+﻿
+@model List<GenerationLogBook.ViewModels.RecipientsViewModel>
+
+
+
+    @{
+        ViewBag.Title = "Email Configuration";
+    }
+
+    <h2>Email Configuration</h2>
+
+
+
+               <style>
+                   .green {
+                       color: black\9;
+                       background-color: #b6ff00\9;
+                   }
+
+                   .yellow {
+                       color: black\9;
+                       background-color: yellow\9;
+                   }
+
+                   .red {
+                       color: black\9;
+                       background-color: #e83636\9;
+                   }
+
+                   .green:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .green:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+                       color: black;
+                       background-color: #b6ff00;
+                   }
+
+                   .yellow:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .yellow:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+                       color: black;
+                       background-color: yellow;
+                   }
+
+                   .red:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .red:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+                       color: black;
+                       background-color: #e83636;
+                   }
+               </style>
+
+
+
+
+               <div id="main" class="form-inline">
+                   <button id="cmdSaveChanges"  class="btn btn-primary" onclick="cmdSaveChanges_Click();">Add New Recipient</button>
+               </div>
+
+
+
+
+
+                   <div id="PendingRequestViewTable"></div>
+                   @Html.Partial("_LoadingSpinner")
+
+
+                   <div class="modal fade" id="myModal" role="dialog">
+                       <div class="modal-dialog modal-sm">
+
+                           <!-- Modal content-->
+                           <div class="modal-content">
+                               <div class="modal-header">
+                                   <button type="button" class="customclose close" data-dismiss="modal">&times;</button>
+                                   <h5 class="modal-title">Create New Entry</h5>
+                               </div>
+
+
+                               <div class="modal-body">
+                                   <div class="form-group row">
+                                       <div class="col-s-4">
+                                           <label for="ex2">Recipient Name</label><br />
+                                           <input id="txtRecipientName" class="col-s-4" />
+                                       </div>
+                                   </div>
+
+
+                                   <div class="form-group row">
+                                       <div class="col-s-4">
+                                           <label for="ex2">Recipient Type</label>
+                                           <select class="form-control input-sm" id="selRecipientType">
+                                               <option value="TO">TO</option>
+                                               <option value="CC">CC</option>
+                                           </select>
+                                       </div>
+                                   </div>
+
+
+
+                                   <div class="form-group row">
+                                       <div class="col-s-4">
+                                           <label for="ex2">Site</label>
+                                           <select class="form-control input-sm" id="seSite"></select>
+                                       </div>
+                                   </div>
+
+
+                                   <div class="form-group row">
+                                       <div class="col-s-4">
+                                           <label for="ex2">Reminder</label><br />
+                                           @*<input id="txtReminderNumber" class="col-s-4" type="number" />*@
+
+                                           <select class="form-control input-sm" id="selReminderNumber">
+                                               <option value="1">First | 2nd Reminder Recipients</option>
+                                               <option value="2">Final Reminder Recipients</option>
+                                           </select>
+
+                                       </div>
+                                   </div>
+
+
+
+                               </div>
+
+
+
+                               <div class="modal-footer">
+                                   <button type="button" class="btn btn-default btn-sm" onclick="cmdConfirm_Click();">Confirm</button>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+
+
+
+
+                   @section scripts{
+
+
+                       <script type="text/javascript">
+
+                           var LOVAdaptors = {};
+                           var LOVSites = @Html.Raw(Json.Encode(Model[0].Sites));
+                           var LOVReminder = @Html.Raw(Json.Encode(Model[0].ReminderNums));
+                           var LOVActive = @Html.Raw(Json.Encode(Model[0].Actives));
+
+
+
+                           var pagerrenderer = function () {
+                               return "<div></div>";
+                           };
+
+
+
+                           function cmdSaveChanges_Click() {
+                               $('#myModal').modal('show');
+                           }
+
+
+
+                           var cellclass = function (row, columnfield, value) {
+                               if (value  == 'Active') {
+                                   return 'green';
+                               }
+                               else if (value  == 'In Active') {
+                                   return 'red';
+                               }
+                               
+                               //else return 'green';
+                           }
+
+
+
+
+                           function cmdConfirm_Click() {
+
+                               var selSiteID =  $("#seSite").val();
+                               var selRecipientType =  $("#selRecipientType").val();
+                               var reminderNumber = $('#selReminderNumber').val();
+                               var RecipientName =  $("#txtRecipientName").val();
+                               //var reminderNumber =  $("#txtReminderNumber").val();
+
+
+                               if ((selSiteID!='') && (selRecipientType!='') && (RecipientName!='') && (reminderNumber!='')) {
+                                   if (parseInt(reminderNumber)<=2) {
+                                       var reg =/^([A-Za-z0-9_\-\.])+\@@([ke|KE])+\.(com)\.(pk)$/;
+                                       if (reg.test(RecipientName)) {
+                                           addNewRecipient(RecipientName,selRecipientType,selSiteID,parseInt(reminderNumber));
+                                           $('#myModal').modal('hide');
+                                       }
+                                       else{
+                                           alert("Please enter correct value for email");
+                                           return;
+                                       }
+                                   }
+                                   else{
+                                       alert("number of reminders must be 1 or 2");
+                                       return;
+                                   }
+                               }
+                               else{
+                                   alert("kindly provide mandatory prameters as required");
+                                   return;
+                               }
+
+                              
+
+                           }
+
+
+                           $(document).ready(function () {
+
+                               //alert("Hello");
+                               createLOVAdaptors();
+                               initControls();
+                               generateEmailConfgurationView();
+
+                               function initControls()
+                               {
+                                   for (var i = 0; i < LOVSites.length; i++) {
+                                       $('#seSite').append('<option value="' + LOVSites[i].Key + '">' + LOVSites[i].Key + '</option>');
+                                   }
+                               }
+
+
+
+
+                               function createLOVAdaptors() {
+                                   LOVAdaptors.Sites = new $.jqx.dataAdapter({
+                                       localdata: LOVSites,
+                                       datatype: "array",
+                                       datafields: [{ name: 'Key', type: 'string' },
+                                                    { name: 'Value', type: 'string' }]
+                                   },
+                                   { autoBind: true });
+
+
+
+                                   LOVAdaptors.Reminders = new $.jqx.dataAdapter({
+                                       localdata: LOVReminder,
+                                       datatype: "array",
+                                       datafields: [{ name: 'Key', type: 'string' },
+                                                    { name: 'Value', type: 'string' }]
+                                   },
+                                { autoBind: true });
+
+
+
+                                   LOVAdaptors.Active = new $.jqx.dataAdapter({
+                                       localdata: LOVActive,
+                                       datatype: "array",
+                                       datafields: [{ name: 'Key', type: 'string' },
+                                                    { name: 'Value', type: 'string' }]
+                                   },
+                                    { autoBind: true });
+
+
+
+                               }
+
+                               function generateEmailConfgurationView() {
+                                   try {
+
+                                       $.ajax({
+                                           type: "GET",
+                                           url: '/EmailConfigurtion/GenerateRequestView',
+                                           success: function (json) {
+                                               if (json.length > 0) {
+
+                                                   var data = [];
+                                                   for (var i = 0; i < json.length; i++) {
+                                                       data.push(json[i]);
+                                                   }
+
+                                                   if (data.length > 0) {
+                                                       var source =
+                                                         {
+                                                             dataType: "json",
+                                                             datafields: [{ name: 'ID',type: 'string' },{ name: 'SiteID' },{ name: 'RecipientName',type: 'string' },
+                                                                 { name: 'RecipientType' },{ name: 'ReminderNum'},{ name: 'Active'},{ name: 'BtnTokenEdit' }],
+                                                             localData: data,
+                                                         };
+
+
+                                                       var dataAdapter = new $.jqx.dataAdapter(source);
+                                                       $("#PendingRequestViewTable").jqxGrid(
+                                                        {
+                                                            source: dataAdapter, width: '100%', autoheight: true, sortable: false, columnsresize: true, editable: true, filterable: true, showfilterrow: true,
+                                                            altrows: false, showeverpresentrow: false, editmode: 'click', selectionmode: "singlerow", theme: "office", columnsheight: '40',
+                                                            
+                                                            columnsheight: 50, autorowheight: false, autoheight: false, enablebrowserselection: true, enableanimations: true, filtermode: 'excel', keyboardnavigation: false,
+
+
+                                                            //showtoolbar: true, toolbarheight: 50,
+                                                            //pagesizeoptions: ['10', '20', '30', '40','50','60','70','80','90','100'],
+                                                            //pageable: true,pagerheight: 0,
+
+
+                                                            //rendertoolbar: function(toolbar) {
+                                                            //    var me = this;
+                                                            //    var container = $("<div style='margin: 5px;'></div>");
+                                                            //    var addButton = $("<div style='float: left; margin-left: 5px;margin-top:-4px;' title='Add Row'><button type='button' class='btn btn-default btn-sm'>Confirm</button></div>");
+                                                            //    toolbar.append(container);
+                                                            //    container.append(addButton);
+
+                                                            //    addButton.click(function(event) {
+                                                            //        var datarow = generaterow();
+                                                            //        var commit = $("#jqxGrid_commercial_edit").jqxGrid('addrow', null, datarow);
+                                                            //    });
+
+
+                                                            //},
+
+                                                            ready: function () {
+
+
+                                                                //var button = $('<input type="button" value="Add New Change Order" id="myButton" />');
+                                                                //button.click(function () {
+                                                                //});
+                                                                //$(".jqx-grid-pager > div:first").append(button);
+
+                                                            },
+                                                            columns: [
+
+                                                                {
+                                                                    text: "Action", datafield: "BtnTokenEdit", width: 50, columntype: "button", cellsrenderer: function () { return "Edit" },
+                                                                    buttonclick: function (row) {
+
+                                                                        var ID = $('#PendingRequestViewTable').jqxGrid('getcellvalue', row, "ID");
+                                                                        var RecipientName = $('#PendingRequestViewTable').jqxGrid('getcellvalue', row, "RecipientName");
+                                                                        var SiteID = $('#PendingRequestViewTable').jqxGrid('getcellvalue', row, "SiteID");
+                                                                        var RecipientType = $('#PendingRequestViewTable').jqxGrid('getcellvalue', row, "RecipientType");
+                                                                        var cActive = $('#PendingRequestViewTable').jqxGrid('getcellvalue', row, "Active")==("Active")?1:
+                                                                                        $('#PendingRequestViewTable').jqxGrid('getcellvalue', row, "Active")==("In Active")? 0:0;
+
+
+                                                                        var ReminderNumber = $('#PendingRequestViewTable').jqxGrid('getcellvalue', row, "ReminderNum")==("First | 2nd Reminder Recipients") ? 1 :
+                                                                                        $('#PendingRequestViewTable').jqxGrid('getcellvalue', row, "ReminderNum")==("Final Reminder Recipients") ?2:0;
+
+
+
+
+                                                                        postEditRecipientName(ID,RecipientName,RecipientType,SiteID,ReminderNumber,cActive);
+
+                                                                    }
+                                                                },
+
+                                                                    //{
+                                                                    //    text: "Action", datafield: "BtnTokenAdd", width: 50, columntype: "button", cellsrenderer: function () { return "Add" },
+                                                                    //    buttonclick: function (row) {
+                                                                    //        $('#myModal').modal('show');
+
+
+
+                                                                    //    }
+                                                                    //},
+
+
+
+
+                                                                 { text: 'ID', dataField: 'ID', width: 50, align: 'center', cellsAlign: 'center', editable: false,hidden: true },
+
+                                                                { text: 'SiteID', dataField: 'SiteID', width: 50, align: 'center', cellsAlign: 'center',columntype: 'dropdownlist',
+                                                                    createeditor: function (row, value, editor) { editor.jqxDropDownList({ autoDropDownHeight: true, source: LOVAdaptors.Sites, displayMember: "Key", valueMember: "Key" }) }},
+                                                                { text: 'Recipient Name', dataField: 'RecipientName', width: 300, align: 'center', cellsAlign: 'left', columntype: 'text',filtertype: 'input', editable: true ,validation: dataValidator  },
+                                                                { text: 'Recipient Type', dataField: 'RecipientType', width: 100, align: 'center', cellsAlign: 'left', columntype: 'text', editable: false },
+                                                                
+                                                                
+                                                                //{ text: 'Reminder Number', dataField: 'ReminderNum', width: 300, align: 'center', cellsAlign: 'left',editable: false,columntype: 'numberinput',cellsformat: 'f2',validation: dataValidator,  editable: false}
+                                                            
+                                                            
+                                                             { text: 'Reminder Number', dataField: 'ReminderNum', width: 300, align: 'center', cellsAlign: 'left',columntype: 'dropdownlist',
+                                                             createeditor: function (row, value, editor) { editor.jqxDropDownList({ autoDropDownHeight: true, source: LOVAdaptors.Reminders,displayMember: "Value", valueMember: "Key" }) } ,
+                                                                     initeditor: function (row, cellvalue, editor) {editor.jqxDropDownList('selectItem', cellvalue);}
+                                                             },
+
+
+                                                             { text: 'Active', dataField: 'Active', width: 100, align: 'center', cellsAlign: 'center',columntype: 'dropdownlist',cellclassname: cellclass,
+                                                                     createeditor: function (row, value, editor) { editor.jqxDropDownList({ autoDropDownHeight: true, source: LOVAdaptors.Active, displayMember: "Value", valueMember: "Key" }) }}
+
+
+                                                            
+                                                            ]
+                                                        });
+
+                                                       $("#PendingRequestViewTable").on('cellvaluechanged', fncellvaluechanged);
+
+
+                                                       //#btnExportPendingRequestView
+                                                       //$(btnName).jqxButton({ template: "primary" });
+                                                       //$(btnName).click(function () { $(dataTableName).jqxDataTable('exportData', 'xls'); });
+
+                                                       hideLoadingSpinner();
+
+                                                   }
+
+                                               }
+
+                                           },
+                                           error: function (json) {
+
+                                               // $("#progress").hide();
+                                               hideLoadingSpinner();
+
+                                           }
+                                       });
+
+
+                                   } catch (e) {
+                                       hideLoadingSpinner();
+                                   }
+
+                               }
+
+                               showLoadingSpinner();
+
+                           });
+
+
+
+
+
+                           function postEditRecipientName(thisrowID,thisRecipientName,thisRecipientType,thisSiteID,thisReminderNumber,thisActiveStatus)
+                           {
+
+                               try {
+                                   $.ajax({
+                                       type: "POST",
+                                       data: {rowID: parseInt(thisrowID) , SiteID : thisSiteID , RecipientName : thisRecipientName , ReminderNumber : parseInt(thisReminderNumber) ,   Active : parseInt(thisActiveStatus)},
+                                       url: '/EmailConfigurtion/PostChangesEditForNotification',
+                                       success: function (json) {
+                                           if (json!=null) {
+                                               if (json.CODE=="OK") {
+                                                   alert("Recipient updated");
+                                                   hideLoadingSpinner();
+                                               }
+                                               else if (json.CODE!= "OK") {
+                                                   alert("An Error has Occured.\n" + json.CODE + ": " + json.TEXT);
+                                                   hideLoadingSpinner();
+                                                   return;
+                                               }
+
+                                           }
+
+                                       },
+                                       error: function (json) {
+                                           hideLoadingSpinner();
+
+                                       }
+                                   });
+                               } catch (e) {
+
+                               }
+
+                               showLoadingSpinner();
+
+                           }
+
+
+                           function addNewRecipient(thisRecipientName,thisRecipientType,thisSiteID,thisReminderNumber)
+                           {
+                               try {
+                                   $.ajax({
+                                       type: "POST",
+                                       data: {inputSiteID : thisSiteID , RecipientName : thisRecipientName, inputReminderNumber : parseInt(thisReminderNumber) , RecipientType : thisRecipientType },
+                                       url: '/EmailConfigurtion/PostNewRecipientForNotification',
+                                       success: function (json) {
+                                           if (json!=null) {
+                                               if (json.CODE=="OK") {
+                                                   alert("Recipient Added");
+                                                   hideLoadingSpinner();
+
+                                               }
+                                               else if (json.CODE!= "OK") {
+                                                   alert("An Error has Occured.\n" + json.CODE + ": " + json.TEXT);
+                                                   hideLoadingSpinner();
+                                                   return;
+                                               }
+                                           }
+
+                                       },
+                                       error: function (json) {
+                                           hideLoadingSpinner();
+                                       }
+                                   });
+                               } catch (e) {
+
+                               }
+
+                               showLoadingSpinner();
+                           }
+
+
+
+
+                           var dataValidator = function (cell, value) {
+                               if (cell.datafield== 'ReminderNum') {
+                                   if (value < 0 || value > 2){
+                                       return { result: false, message: "Please enter correct value for reminder" };
+                                   }
+                               }
+
+                               if (cell.datafield== 'RecipientName') {
+                                 
+                                   var reg =/^([A-Za-z0-9_\-\.])+\@@([ke|KE])+\.(com)\.(pk)$/;
+                                   if (!reg.test(value)) {
+                                       return {result:false , message: "Please enter correct value for email"};
+                                   } 
+                               }
+
+                               return true;
+                           }
+
+
+
+                           var fncellvaluechanged = function (event) {
+
+                               var datafield = event.args.datafield;
+                               var rowBoundIndex = args.rowindex;
+                               var value = args.newvalue;
+                               var oldvalue = args.oldvalue;
+                               var newvalue;
+
+                               if (value == null || typeof value == 'undefined') {
+                                   return;
+                               }
+                               else {
+                                   newvalue = value;
+                               }
+
+                               $("#PendingRequestViewTable").jqxGrid('setcellvalue', rowBoundIndex, datafield, newvalue);
+
+
+                           }
+
+                       </script>
+                   }
+
+

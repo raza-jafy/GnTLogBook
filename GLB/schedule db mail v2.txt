@@ -1,0 +1,96 @@
+create procedure sendGenLogBookNotificationMail
+--@SiteId as varchar(max), @UnitId as varchar(max)
+as
+begin
+
+--BQ1
+
+
+if exists(select SiteId,UnitId,CONVERT(VARCHAR(10), RdgDateTime, 103)  RdgDateTime  
+from UnitReadingRegister1 where 
+--SiteId = 'BQ1' and UnitId = 'BQ1-UT3' and 
+isnull(L1Approval,'N') = 'N' 
+group by SiteId,UnitId,CONVERT(VARCHAR(10), RdgDateTime, 103)
+--order by CONVERT(VARCHAR(10), RdgDateTime, 103)
+)
+
+declare @numCount as bigint = 1
+declare @RtnCode as bigint
+declare @SiteId_ as varchar(max)
+declare @UnitId_ as varchar(max)
+declare @RdgDateTime_ as varchar(max)
+
+
+
+--select SiteId,UnitId,CONVERT(VARCHAR(10), RdgDateTime, 103) RdgDateTime,DATEDIFF(D,RdgDateTime,getdate())
+--from UnitReadingRegister1 
+--where 
+
+--isnull(L1Approval,'N') = 'N' and DATEDIFF(D, RdgDateTime,getdate())>1
+--group by SiteId,UnitId,CONVERT(VARCHAR(10), RdgDateTime, 103),CONVERT(VARCHAR(10), DATEADD(d,1,RdgDateTime), 103) ,DATEDIFF(D,RdgDateTime,getdate())
+
+
+
+
+
+DECLARE @bm CURSOR
+SET @bm = CURSOR FOR
+select SiteId,UnitId,CONVERT(VARCHAR(10), RdgDateTime, 103)  RdgDateTime  
+from UnitReadingRegister1 
+where 
+--SiteId = @SiteId and UnitId = @UnitId and 
+isnull(L1Approval,'N') = 'N'  
+group by SiteId,UnitId,CONVERT(VARCHAR(10), RdgDateTime, 103)
+order by CONVERT(VARCHAR(10), RdgDateTime, 103)
+OPEN @bm
+FETCH NEXT FROM @bm INTO @SiteId_,@UnitId_,@RdgDateTime_
+WHILE @@FETCH_STATUS = 0
+BEGIN
+
+--http://tomaslind.net/2015/06/26/sending-html-tables-in-mail-from-sql-server/
+DECLARE @MailSubject as varchar(max)
+set @MailSubject  = CONCAT('LDC-GEN-LOG BOOK - Pending Requests Unit  ( ', CONCAT(@SiteId_ , ' -> ' , @UnitId_ )  ,' )')
+
+
+DECLARE @MAIL_BODY VARCHAR(max)
+SET @MAIL_BODY = '<p>System Generated Report</p><br/>'
+SELECT @MAIL_BODY = 
+	@MAIL_BODY + '<table border="1" align="center" cellpadding="2" cellspacing="0" style="color:black;font-family:consolas;text-align:center;">' +
+    '<tr>
+				<th>Site ID</th>
+				<th>Unit ID</th>
+				<th>Registration Date</th>
+    </tr>'
+ 
+/* ROWS */
+SELECT
+    @MAIL_BODY = @MAIL_BODY +
+        '<tr>' +
+        '<td>' + CAST(@SiteId_ AS VARCHAR(11)) + '</td>' +
+        '<td>' + CAST(@UnitId_ AS VARCHAR(11)) + '</td>' +
+        '<td>' + CAST(@RdgDateTime_ AS VARCHAR(11)) + '</td>' +
+        '</tr>'
+SELECT @MAIL_BODY = @MAIL_BODY + '</table>'
+
+
+EXEC msdb.dbo.sp_send_dbmail @profile_name='LDCGEN', @body_format = 'HTML',
+@recipients='rabha.shoaib@ke.com.pk',
+@copy_recipients = 'rabha.shoaib@ke.com.pk',
+@subject= @MailSubject, @body=@MAIL_BODY
+
+IF @RtnCode <> 0
+begin
+	RAISERROR('Error.', 16, 1)
+end
+
+set @numCount = @numCount +1
+
+
+FETCH NEXT FROM @bm INTO @SiteId_,@UnitId_,@RdgDateTime_
+END
+CLOSE @bm
+DEALLOCATE @bm
+
+
+
+end

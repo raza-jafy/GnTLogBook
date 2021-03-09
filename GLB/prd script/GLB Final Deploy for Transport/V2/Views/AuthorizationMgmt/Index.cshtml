@@ -1,0 +1,65 @@
+﻿@model GenerationLogBook.ViewModels.AuthorizationsListViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+<h2>User Authorizations</h2>
+@Html.ActionLink("Add Authorization", "ModifyAuthorizationForm", new { id = Model.UserSequenceNo }, null)
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.authorizations.Single().AuthId)
+        </th>
+        <th>
+            Station
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.authorizations.Single().AuthStatusId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.authorizations.Single().CreatedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.authorizations.Single().CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.authorizations.Single().ChangedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.authorizations.Single().ChangedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.authorizations.Single().Comments)
+        </th>
+    </tr>
+    @foreach (var item in Model.authorizations)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.ModuleAuthMaster.AuthText, "ModifyAuthorizationForm", new { id = Model.UserSequenceNo, authid = item.AuthId }, null)
+            </td>
+            <td>
+                @Html.DisplayFor(mi => item.ModuleAuthMaster.SitesMaster.SiteName)
+            </td>
+            <td>
+                @Html.DisplayFor(mi => item.AuthStatus.AuthStatusText)
+            </td>
+            <td>
+                @Html.DisplayFor(mi => item.CreatedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(mi => item.CreatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(mi => item.ChangedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(mi => item.ChangedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(mi => item.Comments)
+            </td>
+        </tr>
+    }
+</table>
+

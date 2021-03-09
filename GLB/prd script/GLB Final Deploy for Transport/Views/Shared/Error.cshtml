@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Error</title>
+</head>
+<body>
+    <hgroup>
+        <h1>Something gone unusual while processing your request.</h1>
+        @*<h2>An error occurred while processing your request.</h2>*@
+        <h4>You can click <a href='/Home'>here</a> to go to home page</h4>
+        @{ 
+            var objException = (Exception)TempData["objException"];
+        }
+        <h3> @TempData["ControllerName"] / @TempData["ActionName"]</h3>
+        <h5>@objException.ToString()</h5>
+    </hgroup>
+</body>
+</html>

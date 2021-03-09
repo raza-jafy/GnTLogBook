@@ -1,0 +1,46 @@
+﻿@model IEnumerable<GenerationLogBook.UnitsMaster>
+@{
+    ViewBag.Title = "Master Data Management";
+}
+
+<h2>Master Data Management</h2>
+<table class="table">
+    <tr>
+        <th>
+            Action
+        </th>
+        <th>
+            @Html.DisplayNameFor( m => m.SitesMaster.SiteName)
+        </th>
+        <th>
+            @Html.DisplayNameFor( m => m.UnitName )
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.GDC)
+        </th>
+        <th>
+            @Html.DisplayNameFor( m => m.ReferenceCapacity )
+        </th>
+    </tr>
+    @foreach(var row in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink("Change", "ModifyMasterDataForm", new { id = row.UnitId }, null)
+            </td>
+            <td>
+                @Html.DisplayFor(m => row.SitesMaster.SiteName)
+            </td>
+            <td>
+                @Html.DisplayFor(m => row.UnitName)
+            </td>
+            <td>
+                @Html.DisplayFor(m => row.GDC)
+            </td>
+            <td>
+                @Html.DisplayFor(m => row.ReferenceCapacity)
+            </td>
+        </tr>
+    }
+</table>
+

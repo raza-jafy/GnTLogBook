@@ -1,0 +1,38 @@
+﻿@model GenerationLogBook.ViewModels.BQIElossFormViewModel
+@{
+    ViewBag.Title = "Energy Loss";
+}
+
+
+<script src="~/Scripts/bq1.js"></script>
+@section scripts{
+    <script type="text/javascript">
+    var UserId = '@Model.UserId';
+    var AuthId = '@Model.AuthId';
+    var LOVUnits = @Html.Raw(Json.Encode(Model.LOVUnits));
+    var LOVForcedGrid = @Html.Raw(Json.Encode(Model.LOVForcedGrid));
+    var LOVIsGas = @Html.Raw(Json.Encode(Model.LOVIsGas));
+    var LOVIsLDC = @Html.Raw(Json.Encode(Model.LOVIsLDC));
+    var LOVIsPlanned = @Html.Raw(Json.Encode(Model.LOVIsPlanned));
+    var LOVOutageDeration = @Html.Raw(Json.Encode(Model.LOVOutageDeration));
+    var LOVStartupRamp = @Html.Raw(Json.Encode(Model.LOVStartupRamp));
+    var griddata = @Html.Raw(Json.Encode(Model.Ledger));
+    var hiddenCols = @Html.Raw(Json.Encode(Model.hiddenCols));
+
+
+
+        //implementing requirement 2 changes
+    var LOVReason = @Html.Raw(Json.Encode(Model.LOVReason));
+        //implementing requirement 2 changes
+
+
+
+        $(document).ready(function () {
+            InitializeForm();
+        });
+    </script>
+}
+
+@{
+    Html.RenderPartial("_ELossTemplate");
+}

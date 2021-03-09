@@ -1,0 +1,822 @@
+﻿<!--ELoss Template Section Begins-->
+<!--
+IMPORTANT: 
+    Implemenation Must Implement following methods
+        1. bindDataGrid()
+        2. createnewledgerentry()
+-->
+<script type="text/javascript">
+    var urlFetchLedger;  //Must be set by the Implementer Form
+    var urlPostLedger;   //Must be set by the Implementer Form
+    var urlFetchReport;  //Must be set by the Implementer Form
+    var activeUnitId = '';
+    var copyfromrec = null;
+
+    function InitializeELossTmplate() {
+        //showLoadingSpinner();
+        $("#cmdSaveChanges").hide();
+        $("#cmdAddNew").hide();
+        $("#cmdApprovepending").hide();
+        $("#cmdFetchLedger").show();
+
+        $('#selectdate').keydown(function (e) {
+            e.preventDefault();
+        });
+
+        $('#selectdate').focus(function () {
+            $('#selectdate').blur();
+        });
+
+        $('#selectdate').datepicker({
+            defaultDate: new Date(),
+            autoclose: true,
+            todayHighlight: true,
+            format: 'dd-MM-yyyy',
+            endDate: new Date()
+        });
+        var today = new Date();
+        $('#selectdate').datepicker('setDate', new Date(today.getFullYear(), today.getMonth(), today.getDate()));
+        
+        $('.modal-dialog-popup').draggable({
+            handle: ".modal-header"
+        });
+
+        $('#SelectedUnitId').append('<option value="' + '' + '">' + 'Select' + '</option>');
+
+        for (var i = 0; i < LOVUnits.length; i++) {
+            $('#SelectedUnitId').append('<option value="' + LOVUnits[i].Key + '">' + LOVUnits[i].Value + '</option>');
+        }
+
+        for (var i = 0 ; i < 24; i++) {
+            $('#hour').append('<option value="' + ("00" + i).substr(-2, 2) + '">' + ("00" + i).substr(-2, 2) + '</option>');
+        }
+
+        for (var i = 0 ; i < 60; i++) {
+            $('#minute').append('<option value="' + ("00" + i).substr(-2, 2) + '">' + ("00" + i).substr(-2, 2) + '</option>');
+        }
+
+        bindDataGrid(griddata);
+
+        // create context menu
+        var contextMenu = $("#contextMenu").jqxMenu({ width: 200, height: 100, theme: 'office', autoOpenPopup: false, mode: 'popup' });
+
+        $('#divgrid').on('contextmenu', function () {
+            return false;
+        });
+
+        // handle context menu clicks.
+        $('#contextMenu').on('itemclick', fncontextMenuClick);
+        
+        $('#divgrid').on('rowclick', function (event) {
+            //$('#cmdFetchLedger').focus();
+            //$('#divgrid').jqxGrid('endupdate');
+            //simulatedClick(document.getElementById('SelectedUnitId'));
+            
+            if (event.args.rightclick) {
+             //   simulateClick((document.getElementById("dlink")));
+               // simulate(document.getElementById("dlink"), "click");//cmdFetchLedger
+                //$("#dlink").trigger("click");
+                //$("#cmdReport").focus();
+                //$("#cmdReport").click();
+                console.log("right click");
+                $('#divgrid').jqxGrid('selectrow', event.args.rowindex);
+                
+                if (IsRowEditable(event.args.rowindex) == false || copyfromrec == null){
+                    $("#contextMenu").jqxMenu('disable', 'mpaste', true);
+
+                    //implement requirement 2 changs
+                    //$("#contextMenu").jqxMenu('disable', 'mdelete', true);
+                }
+                else{
+                    $("#contextMenu").jqxMenu('disable', 'mpaste', false);
+
+
+                    //implement requirement 2 changs
+                    //$("#contextMenu").jqxMenu('disable', 'mdelete', false);
+
+                }
+                    
+
+                var scrollTop = $(window).scrollTop();
+                var scrollLeft = $(window).scrollLeft();
+                contextMenu.jqxMenu('open', parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft, parseInt(event.args.originalEvent.clientY) + 5 + scrollTop);
+                console.log('event.args.rowindex: ' + event.args.rowindex);
+
+                return false;
+            }
+            return true;
+        });
+    }
+
+    /*----------------------------------Report Handling Code Begins----------------------------------------------------*/
+    function cmdReport_Click() {
+        if (!fnValidateInput()) {
+            alert('Invalid Parameter Selected');
+            return;
+        }
+        var input = {};
+        showLoadingSpinner();
+        $('#divrpt').html('');
+        $('#ReportPopupLabel').text('ELR');
+        input.DateFrom = $('#selectdate').val();
+        input.DateTo = $('#selectdate').val();
+        input.Id = $("#SelectedUnitId").val();
+        $('#ReportPopupLabel').text('ELR: ' + input.DateFrom +  ', ' + input.Id);
+        var prmFetchReport = FetchReport(input);
+        prmFetchReport.done(FetchReport_Success);
+        prmFetchReport.fail(FetchReport_Fail);
+
+    }
+
+    function FetchReport(input) {
+        //var deltaJson = JSON.stringify({ 'input': input });
+        return $.ajax({
+            type: "GET",
+            url: urlFetchReport,
+            data: input
+        });
+    }
+
+    var FetchReport_Success = function (xdata) {
+        console.log(xdata);
+        hideLoadingSpinner();
+        $('#rptPopup').modal({
+            backdrop: false,
+            show: true
+        });
+        $('#divrpt').html(xdata);
+    }
+
+    var FetchReport_Fail = function (xhr) {
+        hideLoadingSpinner();
+
+        if (xhr.status == 403) {
+            showLoadingSpinner();
+            //var response = $.parseJSON(xhr.responseText);
+            var protocol = '';
+            if (window.location.protocol != '')
+                protocol = window.location.protocol + '//';
+            else
+                protocol = '';
+            var port = '';
+            if (window.location.port != '')
+                port = ':' + window.location.port;
+            else
+                port = '';
+
+            var redirectUrl = protocol + window.location.hostname + port + '/Login/Logoff';
+            window.location.assign(redirectUrl);
+            return;
+        }
+
+        if (xhr.readyState == 0) {
+            alert("An Error has Occured.\nUnable to reach to the Server");
+            return;
+        }
+        $('#diverrorinfo').html(xhr.responseText);
+    }
+    /*----------------------------------Report Handling Code Ends----------------------------------------------------*/
+
+    function fnValidateInput() {
+        if ($('#SelectedUnitId').find(":selected").val() == "" || $('#selectdate').val() == "")
+            return false;
+        else
+            return true;
+    }
+
+    function cmdFetchLedger_Click() {
+        var recno = getunsaverecordCount();
+
+        if (recno > 0) {
+            var opt = confirm('This form contains unsaved records. Press OK to save or press Cancel to discard them before leaving');
+            if (opt) {
+                cmdSaveChanges_Click();
+            }
+        }
+
+        activeUnitId = $('#SelectedUnitId').find(":selected").val();
+        preFetchLedger_Click();
+
+        if (fnValidateInput()) {
+            showLoadingSpinner();
+
+            var prmFetchLedger = FetchLedger();
+            prmFetchLedger.done(FetchLedger_Success);
+            prmFetchLedger.fail(FetchLedger_Fail);
+        }
+        else
+            alert('ERROR:\nPlease Enter Parameters before Submitting');
+    }
+
+    function FetchLedger() {
+        var inputcollection = [];
+        var inputparameters = {};
+
+        inputparameters.UnitId = activeUnitId;
+        inputparameters.date = $('#selectdate').val();
+        console.log(inputparameters);
+        inputcollection.push(inputparameters);
+
+        var deltaJson = JSON.stringify({ 'input': inputcollection });
+
+        return $.ajax({
+            type: "POST",
+            url: urlFetchLedger,
+            data: deltaJson,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        });
+    }
+
+    var FetchLedger_Success = function (data) {
+        console.log(data);
+        hideLoadingSpinner();
+
+        if (data.Status == null) {
+            alert("Unable to get Status of response. Please try again, if problem persists contact application administrator");
+            return;
+        }
+
+        if (data.Status.CODE != "OK") {
+            alert("An Error has Occured.\n" + data.Status.CODE + ": " + data.Status.TEXT);
+            return;
+        }
+        $('#divheader').text(data.FormHeading);
+
+        if (data.Ledger.length > 0) {
+            $("#cmdSaveChanges").show();
+            $("#cmdAddNew").show();
+            $("#cmdReport").show();
+            if (AuthId == L10AUTHID || AuthId == L20AUTHID || AuthId == PWRAUTHID) {
+                $("#cmdApprovepending").show();
+
+                //cmdCancelApprovepending requirement 2 changes
+                $("#cmdCancelApprovepending").show();
+                //cmdCancelApprovepending requirement 2 changes
+
+            }
+        }
+        else {
+            $("#cmdSaveChanges").hide();
+            $("#cmdAddNew").hide();
+            $("#cmdReport").hide();
+            $("#cmdApprovepending").hide();
+
+            //cmdCancelApprovepending requirement 2 changes
+            $("#cmdCancelApprovepending").hide();
+            //cmdCancelApprovepending requirement 2 changes
+
+        }
+
+        $("#cmdFetchLedger").show();
+        bindDataGrid(data.Ledger);
+    }
+
+    var FetchLedger_Fail = function (xhr) {
+        hideLoadingSpinner();
+
+        if (xhr.status == 403) {
+            showLoadingSpinner();
+            //var response = $.parseJSON(xhr.responseText);
+            var protocol = '';
+            if (window.location.protocol != '')
+                protocol = window.location.protocol + '//';
+            else
+                protocol = '';
+            var port = '';
+            if (window.location.port != '')
+                port = ':' + window.location.port;
+            else
+                port = '';
+
+            var redirectUrl = protocol + window.location.hostname + port + '/Login/Logoff';
+            window.location.assign(redirectUrl);
+            return;
+        }
+
+        if (xhr.readyState == 0) {
+            alert("An Error has Occured.\nUnable to reach to the Server");
+            return;
+        }
+
+        $('#diverrorinfo').html(xhr.responseText);
+    }
+
+    function cmdSaveChanges_Click() {
+        showLoadingSpinner();
+
+        var changes = $.grep(ledger, function (n, i) {
+            return n.ctrack == "Y";
+        });
+        //alert(changes.length + " record are changed");
+        if (changes.length == 0) {
+            hideLoadingSpinner();
+            alert('Nothing to Save');
+            return;
+        }
+
+
+        //implementing requirement 2 changes..SGT-ST1
+        if ((AuthId == DEOAUTHID) || (AuthId == L10AUTHID) || (AuthId == L20AUTHID) || (AuthId == PWRAUTHID)) {
+            //where fetch register is same
+            if ((activeUnitId.substr(0, activeUnitId.indexOf("-")) == 'BQ1') ||
+                (activeUnitId.substr(0, activeUnitId.indexOf("-")) == "KPC") ||
+                (activeUnitId == 'BQ2-ST1') || (activeUnitId == 'KGT-ST1') ||(activeUnitId == 'SGT-ST1')) {
+
+                if (chkInterlockingConditionBeforeSave(changes,activeUnitId)) {
+                    var prmpostChanges = postChanges(changes);
+                    prmpostChanges.done(postChanges_Success);
+                    prmpostChanges.fail(postChanges_Fail);
+                }
+                else {
+                    hideLoadingSpinner();
+                    alert('Please select outage/deration nature');
+                    return;
+                }
+
+            }
+            else {
+
+                //without checking interlocking condition..
+                var prmpostChanges = postChanges(changes);
+                prmpostChanges.done(postChanges_Success);
+                prmpostChanges.fail(postChanges_Fail);
+
+            }
+        }
+        else {
+            hideLoadingSpinner();
+            return;
+        }
+
+
+        //original condition..posted by rehan bhai..
+        //var prmpostChanges = postChanges(changes);
+        //prmpostChanges.done(postChanges_Success);
+        //prmpostChanges.fail(postChanges_Fail);
+
+
+    }
+
+    function postChanges(changes) {
+      
+        var changesJson = JSON.stringify({ 'changes': changes });
+
+        return $.ajax({
+            type: "POST",
+            url: urlPostLedger,
+            data: changesJson,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        });
+    }
+
+    var postChanges_Success = function (data) {
+        if (data.Status == null) {
+            alert("Unable to get Status of response. Please try again, if problem persists contact application administrator");
+            hideLoadingSpinner();
+            return;
+        }
+
+        if (data.Status.CODE != "OK") {
+            alert("An Error has Occured.\n" + data.Status.CODE + ": " + data.Status.TEXT);
+            hideLoadingSpinner();
+            return;
+        }
+        bindDataGrid(data.Ledger); //To refresh with recent data
+        hideLoadingSpinner();
+    }
+
+    var postChanges_Fail = function (xhr) {
+        hideLoadingSpinner();
+
+        if (xhr.status == 403) {
+            showLoadingSpinner();
+            //var response = $.parseJSON(xhr.responseText);
+            var protocol = '';
+            if (window.location.protocol != '')
+                protocol = window.location.protocol + '//';
+            else
+                protocol = '';
+            var port = '';
+            if (window.location.port != '')
+                port = ':' + window.location.port;
+            else
+                port = '';
+
+            var redirectUrl = protocol + window.location.hostname + port + '/Login/Logoff';
+            window.location.assign(redirectUrl);
+            return;
+        }
+
+        if (xhr.readyState == 0) {
+            alert("An Error has Occured.\nUnable to reach to the Server");
+            return;
+        }
+
+        $('#diverrorinfo').html(xhr.responseText);
+    }
+
+
+    function cmdConfirm_Click() {
+        var d = new Date(ledger[0].RdgDateTimeStr);
+        d.setHours($("#hour").val());
+        d.setMinutes($("#minute").val());
+        //alert(d);
+        var x = new Date();
+        if (d.valueOf() > x.valueOf()) {
+            alert("Entry in future Date/Time Not Allowed.");
+            return;
+        }
+
+        var isexists = $.grep(ledger, function (n, i) {
+            return new Date(n.RdgDateTimeStr).valueOf() == d.valueOf();
+        });
+        if (isexists.length > 0) {
+            alert('DateTime already exists in the sheet');
+        }
+        else {
+                var sortedledger = ledger.sort(function (a, b) {
+                    var dateA = new Date(a.RdgDateTimeStr), dateB = new Date(b.RdgDateTimeStr);
+                    return dateA - dateB;
+                });
+
+                for (var i = 0; i < sortedledger.length ; i++) {
+                    if (new Date(sortedledger[i].RdgDateTimeStr).valueOf() > d.valueOf()) {
+                        var refrecord = sortedledger[i - 1];
+                        refrecord.focusidx = i;
+                        break;
+                    }
+                }
+
+                if (refrecord == null) {
+                    refrecord = sortedledger[sortedledger.length - 1];
+                    refrecord.focusidx = sortedledger.length;
+                }
+                    
+            
+            $('#divgrid').jqxGrid('addrow', null, { RdgDateTimeStr: d, L1Approvalbool: false, L1ApprovalCopy: false, L2Approvalbool: false, L2ApprovalCopy: false, CreateDateStr: '', ctrack: 'Y' }, 'last');
+            var idx = ledger.length - 1;
+            pastevaluestorow(refrecord, idx);
+            //$('#divgrid').jqxGrid('selectrow', idx);
+            //$('#divgrid').jqxGrid('sortby', 'RdgDateTimeStr', 'asc');
+            ////$('#divgrid').jqxGrid('sortby', 'RdgDateTimeStr', 'asc');
+            ////$('#divgrid').jqxGrid('ensurerowvisible', idx);
+            $('#myModal').modal('hide');
+        }
+        //alert(isexists.length + ' Records found');
+    }
+
+    var fncontextMenuClick = function (event) {
+        var args = event.args;
+        var rowindex = $('#divgrid').jqxGrid('getselectedrowindex');
+
+        if ($.trim($(args).text()) == "Copy") {
+            //alert($.trim($(args).text()));
+            copyfromrec = $('#divgrid').jqxGrid('getrowdata', rowindex);
+            console.log('Copy[' + rowindex + '] - ' + copyfromrec.RdgDateTimeStr);
+        }
+        else if ($.trim($(args).text()) == "Paste") {
+
+            if ((ledger.length -1) == rowindex) {
+                copyfromrec.focusidx = rowindex;
+            }
+            else {
+                copyfromrec.focusidx = rowindex + 1;
+            }
+            
+            pastevaluestorow(copyfromrec, rowindex);
+            console.log('Paste[' + rowindex + '] - ' + $('#divgrid').jqxGrid('getrowdata', rowindex).RdgDateTimeStr);
+        }
+        else if ($.trim($(args).text()) == "Insert Below") {
+            var data = $('#divgrid').jqxGrid('getrowdata', rowindex);
+            var date = new Date(data.RdgDateTimeStr);
+            var h = ("00" + date.getHours()).substr(-2, 2);
+            var m = ("00" + date.getMinutes()).substr(-2, 2);
+            $("#hour").val(h);
+            $("#minute").val(m);
+            $('#myModal').modal('show');
+        }
+            //implement requirement 2 changes//
+        else if ($.trim($(args).text()) == "Delete Record") {
+            var targetRowIndex = $('#divgrid').jqxGrid('getselectedrowindex');
+            var targetRow = $('#divgrid').jqxGrid('getrowdata', rowindex);
+            //copyfromrec = $('#divgrid').jqxGrid('getrowdata', rowindex);
+            //console.log('Copy[' + rowindex + '] - ' + copyfromrec.RdgDateTimeStr);
+
+            var opt = confirm('Are you sure to delete the requested record , user not able to revert the changes..');
+
+            if (!opt) {
+                return;
+            }
+
+
+
+            //$('#divgrid').jqxGrid('addrow', null, { RdgDateTimeStr: d, L1Approvalbool: false, L1ApprovalCopy: false, L2Approvalbool: false, L2ApprovalCopy: false, CreateDateStr: '', ctrack: 'Y' }, 'last');
+            //$("#divgrid").jqxGrid('deleterow', targetRow);
+
+
+            //$("#divgrid").jqxGrid('setcellvalue', (targetRowIndex), "ctrack", 'N');
+            $("#divgrid").jqxGrid('hiderow', targetRowIndex);
+             setTimeout(function () { $('#divgrid').jqxGrid('updatebounddata', 'cells'); }, 10);
+
+        }
+
+    }
+
+    var fnendeditmode = function (event, row, columnName) {
+        setTimeout(function () {
+            $("#divgrid").jqxGrid('endcelledit', row, columnName, false);
+        });
+        //console.log('Change');
+    }
+
+    function getunsaverecordCount() {
+        var changes = $.grep(ledger, function (n, i) {
+            return n.ctrack == "Y";
+        });
+        
+        return (changes.length);
+    }
+    
+    function cmdApprovepending_Click() {
+        var opt = confirm('Please make sure that you have reviewed all records before giving bulk approval. Press OK for giving approval to all pending records or if you want to review them first, press Cancel');
+
+        if (!opt) {
+            return;
+        }
+
+        
+        if (AuthId == L10AUTHID) {
+
+            for (var i = 0; i < ledger.length; i++) {
+                var value = $("#divgrid").jqxGrid('getcellvalue', i, "L1Approvalbool");
+
+                if (value == false) {
+                    $("#divgrid").jqxGrid('setcellvalue', i, "L1Approvalbool", true);
+                }
+            }
+        }
+        else if (AuthId == L20AUTHID) {
+            /*var unapprove = $.grep(ledger, function (n, i) {
+                return (n.L1ApprovalCopy == true && n.L1Approvalbool == true && n.L2Approvalbool == false);
+            });
+
+            for (var i = 0; i < unapprove.length; i++) {
+                unapprove[i].L2Approvalbool = true;
+            }*/
+
+            for (var i = 0; i < ledger.length; i++) {
+                var L1ApprovalCopy = $("#divgrid").jqxGrid('getcellvalue', i, "L1ApprovalCopy");
+                var L1Approvalbool = $("#divgrid").jqxGrid('getcellvalue', i, "L1Approvalbool");
+                var L2Approvalbool = $("#divgrid").jqxGrid('getcellvalue', i, "L2Approvalbool");
+
+                if (L1ApprovalCopy == true && L1Approvalbool == true && L2Approvalbool == false) {
+                    $("#divgrid").jqxGrid('setcellvalue', i, "L2Approvalbool", true);
+                }
+            }
+        }
+
+
+
+        //power user modification re    uirement 2 changes
+        if (AuthId == PWRAUTHID) {
+            for (var i = 0; i < ledger.length; i++) {
+                var value = $("#divgrid").jqxGrid('getcellvalue', i, "L1Approvalbool");
+
+                //if (value == false) {
+                //    $("#divgrid").jqxGrid('setcellvalue', i, "L1Approvalbool", true);
+                //}
+
+                $("#divgrid").jqxGrid('setcellvalue', i, "L1Approvalbool", true);
+                $("#divgrid").jqxGrid('setcellvalue', i, "L2Approvalbool", true);
+            }
+
+            setTimeout(function () { $('#divgrid').jqxGrid('updatebounddata', 'cells'); }, 10);
+        }
+
+       
+
+    }
+
+
+
+    //requirement 2 changes
+    function cmdCancelApprovepending_Click() {
+        var opt = confirm('Please make sure that you have reviewed all records before giving bulk approval. Press OK for giving approval to all pending records or if you want to review them first, press Cancel');
+
+        if (!opt) {
+            return;
+        }
+
+
+        if (AuthId == L10AUTHID) {
+
+            for (var i = 0; i < ledger.length; i++) {
+                var value = $("#divgrid").jqxGrid('getcellvalue', i, "L1Approvalbool");
+
+                if (value == true) {
+                    $("#divgrid").jqxGrid('setcellvalue', i, "L1Approvalbool", false);
+                }
+            }
+        }
+        else if (AuthId == L20AUTHID) {
+            /*var unapprove = $.grep(ledger, function (n, i) {
+                return (n.L1ApprovalCopy == true && n.L1Approvalbool == true && n.L2Approvalbool == false);
+            });
+
+            for (var i = 0; i < unapprove.length; i++) {
+                unapprove[i].L2Approvalbool = true;
+            }*/
+
+            for (var i = 0; i < ledger.length; i++) {
+                var L1ApprovalCopy = $("#divgrid").jqxGrid('getcellvalue', i, "L1ApprovalCopy");
+                var L1Approvalbool = $("#divgrid").jqxGrid('getcellvalue', i, "L1Approvalbool");
+                var L2Approvalbool = $("#divgrid").jqxGrid('getcellvalue', i, "L2Approvalbool");
+
+                if (L1ApprovalCopy == true && L1Approvalbool == true && L2Approvalbool == true) {
+                    $("#divgrid").jqxGrid('setcellvalue', i, "L2Approvalbool", false);
+                }
+            }
+        }
+
+
+
+        //power user modification//
+        if (AuthId == PWRAUTHID) {
+
+            for (var i = 0; i < ledger.length; i++) {
+                var value = $("#divgrid").jqxGrid('getcellvalue', i, "L1Approvalbool");
+
+                //if (value == true) {
+                //    $("#divgrid").jqxGrid('setcellvalue', i, "L1Approvalbool", false);
+                //}
+
+                $("#divgrid").jqxGrid('setcellvalue', i, "L1Approvalbool", false);
+                $("#divgrid").jqxGrid('setcellvalue', i, "L2Approvalbool", false);
+
+            }
+        }
+
+
+
+
+
+    }
+    //requirement 2 changes
+    function chkInterlockingConditionBeforeSave(changes, activeUnitId)
+    {
+
+        // (activeUnitId == 'KGT-ST1')
+        var data = [];
+        if ((activeUnitId == 'KGT-ST1') || (activeUnitId == 'SGT-ST1')) {
+
+                        for (var i = 0; i < changes.length; i++) {
+                            var O = changes[i].IsOutageDeration;
+                            if ((O != 'N')) {
+
+                                var IsForced = changes[i].IsForced;
+                                var IsPlanned = changes[i].IsPlanned;
+                                var IsGas = changes[i].IsGas;
+
+                                if ((IsForced != 'N') || (IsPlanned != 'N') || (IsGas != 'N')) {
+                                    data.push(true);
+                                }
+                                else {
+                                    data.push(false);
+                                }
+                            }
+                            else {
+                                data.push(true);
+                            }
+
+                        }
+
+        }
+        else
+        {
+                        for (var i = 0; i < changes.length; i++) {
+                            var O = changes[i].IsOutageDeration;
+                            if ((O != 'N')) {
+
+                                var IsForced = changes[i].IsForced;
+                                var IsLDC = changes[i].IsLDC;
+                                var IsPlanned = changes[i].IsPlanned;
+                                var IsGas = changes[i].IsGas;
+
+                                if ((IsForced != 'N') || (IsLDC != 'N') || (IsPlanned != 'N') || (IsGas != 'N')) {
+                                    data.push(true);
+                                }
+                                else {
+                                    data.push(false);
+                                }
+                            }
+                            else {
+                                data.push(true);
+                            }
+
+                        }
+        }
+
+        //var b = data.every(true);
+        //var b = jQuery.inArray(true, data) == -1 ? false : true;
+        var b = jQuery.inArray(false, data) == -1 ? true : false;
+        return b;
+    }
+
+</script>
+
+@*<div id="divloading"></div>*@
+<br />
+<div id="divheader">Energy Loss Recording Register</div>
+<div id="main" class="form-inline">
+    <label for="selectdate">Date</label>
+    <input id="selectdate" class="form-control input-sm" />
+    <label for="UnitId">Unit</label>
+    <select class="form-control input-sm" id="SelectedUnitId" name="SelectedUnitId"></select>
+    <button id="cmdFetchLedger" style="display:none;" onclick="cmdFetchLedger_Click();" class="btn btn-primary">Retrive</button>
+    <button id="cmdSaveChanges" style="display:none;" class="btn btn-primary" onclick="cmdSaveChanges_Click();">Save Changes</button>
+    @*<button id="cmdAddNew" style="display:none;" class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-backdrop="static">Add New</button>*@
+    <button id="cmdReport" style="display:none;" class="btn btn-primary" onclick="cmdReport_Click();">View ELR</button>
+
+
+
+    <button id="cmdApprovepending" style="display:none;" class="btn btn-primary" onclick="cmdApprovepending_Click();">Approve all</button>
+
+    @*requirement 2 changes*@
+    <button id="cmdCancelApprovepending" style="display:none;" class="btn btn-primary" onclick="cmdCancelApprovepending_Click();">UnSelect all</button>
+    @*requirement 2 changes*@
+
+
+
+</div>
+
+<div id="diverrorinfo"></div>
+<div id="divgrid"> </div>
+@Html.Partial("_LoadingSpinner")
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="customclose close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Create New Entry</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    @*<div class="col-xs-4">
+                            <label for="ex1">Day</label>
+                            <input class="form-control input-sm" id="AddDate" disabled="disabled">
+                        </div>*@
+                    <div class="col-xs-4">
+                        <label for="ex2">Hour</label>
+                        <select class="form-control input-sm" id="hour"></select>
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="ex3">Minute</label>
+                        <select class="form-control input-sm" id="minute"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" onclick="cmdConfirm_Click();">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Report Popup Modal -->
+<div class="modal fade" id="rptPopup" tabindex="-1" role="dialog" aria-labelledby="ReportPopupLabel">
+    <div class="modal-dialog-popup" role="document">
+        <div class="modal-content-popup">
+            <div class="modal-header">
+                <button class="customclose close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="ReportPopupLabel">Modal Title</h4>
+            </div>
+            <div class="modal-body-popup">
+                <div id="divrpt"></div> 
+            </div>
+            <div class="modal-footer">
+                @*<button class="btn btn-default" data-dismiss="modal">Close</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Context Menu for Right Click on Grid -->
+<div id='contextMenu' hidden="hidden" >
+    <ul>
+        <li id ='mcopy'>Copy</li>
+        <li id = 'mpaste'>Paste</li>
+        <li id= 'minsert'>Insert Below</li>
+
+
+        @*<li id='mdelete'>Delete Record</li>*@
+
+    </ul>
+</div>
+<!--ELoss Template Section Ends-->
+

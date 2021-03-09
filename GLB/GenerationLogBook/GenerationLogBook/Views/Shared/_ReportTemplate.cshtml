@@ -1,0 +1,82 @@
+﻿@model GenerationLogBook.ViewModels.ReportsFormViewModel
+    
+<script type="text/javascript">
+    var ColsDef = @Html.Raw(Json.Encode(Model.cols));
+    var result = @Html.Raw(Json.Encode(Model.data));
+
+    var fnDateMinuteRender = function (data) {
+        var date = new Date(data.match(/\d+/)[0] * 1);
+        var month = date.getMonth() + 1;
+        return ("00" + (month.length > 1 ? month : "0" + month)).substr(-2, 2) + "/" + ("00" + date.getDate()).substr(-2, 2) + "/" + date.getFullYear() + ' ' + ("00" + date.getHours()).substr(-2, 2) + ':' + ("00" + date.getMinutes()).substr(-2, 2);
+    }
+    
+    var fnDateDayRender = function (data) {
+        var date = new Date(data.match(/\d+/)[0] * 1);
+        var month = date.getMonth() + 1;
+        return ("00" + (month.length > 1 ? month : "0" + month)).substr(-2, 2) + "/" + ("00" + date.getDate()).substr(-2, 2) + "/" + date.getFullYear();
+    }
+
+    var fnFooterCallback = @Html.Raw(Model.JSfootercallback)
+
+    function fnNumFormatter(number){
+        if(!isFinite(number)){
+            return 0;
+        }
+        if (isNaN(number)){
+            return 0;
+        }
+        if (Math.round(number) == number){
+            return number;
+        }
+        return number.toFixed(2);
+    }
+
+    function DisplayReport() {
+        $('#rptcontainer thead tr th').remove();
+        $('#rptcontainer tfoot tr th').remove();
+        for (var i = 0; i < ColsDef.length; i++) {
+            if (ColsDef[i].type == "DateMinutes") {
+                ColsDef[i].type = "Date";
+                ColsDef[i].render = fnDateMinuteRender;
+            }
+            else if (ColsDef[i].type == "DateDay"){
+                ColsDef[i].type = "Date";
+                ColsDef[i].render = fnDateDayRender;
+            }
+
+            $('#rptcontainer thead tr').append($('<th />', { text: '' }));
+            $('#rptcontainer tfoot tr').append($('<th />', { text: '' }));
+        }
+
+
+        $("#rptcontainer").dataTable().fnDestroy();
+
+        $("#rptcontainer").dataTable({
+            paging: false,
+            searching: false,
+            scrollY: '60vh',
+            scrollX: true,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'excel'
+            ],
+            fixedColumns: {
+                leftColumns: 1
+            },
+            data: result,
+            columns: ColsDef,
+            footerCallback: fnFooterCallback
+        });
+    }
+
+    DisplayReport();
+</script>
+
+<table id="rptcontainer" class="display nowrap" style="width:100%">
+    <thead style="background-color:lightgray; color:black;">
+        <tr></tr>
+    </thead>
+    <tfoot>
+        <tr></tr>
+    </tfoot>
+</table>

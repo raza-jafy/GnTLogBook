@@ -1,0 +1,26 @@
+select SiteId,UnitId,(CONVERT(VARCHAR(10), RdgDateTime, 103)) RdgDateTime ,
+ DATEDIFF(d,convert(datetime, RdgDateTime, 103),GETDATE()) Diff 
+ from (
+select SiteId,UnitId,max(case  
+dbo.GetMaxRequestDateDiff(SiteId,UnitId,1) 
+when  '' then RdgDateTime 
+else DATEADD(day, -1, CONVERT(datetime2, dbo.GetMaxRequestDateDiff(SiteId,UnitId,1),103)) end)  RdgDateTime  
+from UnitReadingRegister1 
+group by UnitId,SiteId
+union all 
+select SiteId,UnitId,max(case  
+dbo.GetMaxRequestDateDiff(SiteId,UnitId,2) 
+when  '' then RdgDateTime 
+else DATEADD(day, -1, CONVERT(datetime2, dbo.GetMaxRequestDateDiff(SiteId,UnitId,2),103)) end)  RdgDateTime  
+from UnitReadingRegister2 
+group by UnitId,SiteId
+union all
+select SiteId,UnitId,max(case  
+dbo.GetMaxRequestDateDiff(SiteId,UnitId,3) 
+when  '' then RdgDateTime 
+else DATEADD(day, -1, CONVERT(datetime2, dbo.GetMaxRequestDateDiff(SiteId,UnitId,3),103)) end)  RdgDateTime  
+from UnitReadingRegister3
+group by UnitId,SiteId
+) x
+where 
+DATEDIFF(d,convert(datetime, RdgDateTime, 103),GETDATE()) In (2,3,5)

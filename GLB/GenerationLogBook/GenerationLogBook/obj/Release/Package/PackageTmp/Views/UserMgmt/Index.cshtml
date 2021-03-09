@@ -1,0 +1,69 @@
+﻿@model IEnumerable<GenerationLogBook.User>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>User Management</h2>
+
+<p>
+    @Html.ActionLink("Create User", "ModifyUserForm")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.UserId)
+        </th>
+        <th>
+            @Html.Label("Authorizations")
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.StatusId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.CreatedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.ChangedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.ChangedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.Comments)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.UserId, "ModifyUserForm", "UserMgmt", new { id = item.UserSequence }, null)
+            </td>
+            <td>
+                @Html.ActionLink("Manage", "Index", "AuthorizationMgmt", new { id = item.UserSequence }, null)
+            </td>
+            <td>
+                @Html.DisplayFor(mi => item.UserStatus.StatusText)
+            </td>
+            <td>
+                @Html.DisplayFor(mi => item.CreatedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(mi => item.CreatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(mi => item.ChangedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(mi => item.ChangedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(mi => item.Comments)
+            </td>
+        </tr>
+    }
+</table>
+
+
